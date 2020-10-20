@@ -1,49 +1,56 @@
-#map {
+body {
+    margin: 0;
+    padding: 0;
+  }
+  
+  #map {
     position: absolute;
     top: 0;
     bottom: 0;
     width: 100%;
-}
-
-.map-overlay {
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    background: rgba(255, 255, 255, 0.8);
-    margin-right: 20px;
-    font-family: Arial, sans-serif;
-    overflow: auto;
-    border-radius: 3px;
-}
-  
-#legend {
-    padding: 10px;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-    line-height: 18px;
-    height: 80px;
-    left: 20px;
-    margin-bottom: 40px;
-    width: 160px;
-}
-
-.legend-key {
-    display: inline-block;
-    border-radius: 20%;
-    width: 10px;
-    height: 10px;
-    margin-right: 5px;
-}
-
-#title {
-    top: 0;
-    left: 20px;
-    height: 40px;
-    margin-top: 20px;
-    width: 300px;
   }
-
-  h2 {
-    margin: 10px;
-    font-size: 1.2em;
-    text-align: left;
+  
+  #map {
+    position: fixed;
+    width: 50%;
+  }
+  
+  #info {
+    display: block;
+    position: relative;
+    margin: 0px auto;
+    width: 50%;
+    padding: 10px;
+    border: none;
+    border-radius: 3px;
+    font-size: 12px;
+    text-align: center;
+    color: #222;
+    background: #fff;
+  }
+  
+  #features {
+    width: 50%;
+    margin-left: 50%;
+    font-family: sans-serif;
+    overflow-y: scroll;
+    background-color: #fafafa;
+  }
+  
+  section {
+    padding: 25px 50px;
+    line-height: 25px;
+    border-bottom: 1px solid #ddd;
+    opacity: 0.25;
+    font-size: 13px;
+    font-family: 'Lato', sans-serif;
+  }
+  
+  section.active {
+    opacity: 1;
+  }
+  
+  section:last-child {
+    border-bottom: none;
+    margin-bottom: 200px;
   }

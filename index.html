@@ -1,21 +1,40 @@
-<!DOCTYPE HTML>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<script src="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.js"></script>
-<link href="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css" rel="stylesheet">
-<link href="css/map-style.css" rel="stylesheet">
-</head>
-<body>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>My Map</title>
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+    <script src="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.js"></script>
+    <link href="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
+    <link href="css/map-style.css" rel="stylesheet" type="text/css">
+    <!-- UIKit -->
+    <link rel="stylesheet" href="css/uikit.min.css" />
+    <script src="javascript/uikit.min.js"></script>
+    <script src="javascript/uikit-icons.min.js"></script>
+  </head>
+  <body>
     <div id="map"></div>
-    <div class="map-overlay" id="legend"></div>
-    <div class="map-overlay" id="title">
-        <h2>Building Development Status</h2>
-    </div>
+    <!-- <pre id="info">Move the cursor to show the longitude and latitude</pre> -->
     
-
-<script>
-
-</script>
-</body>
+    <div id="features">
+      <section id="poi" class="active">
+        <h3>If you are an art lover...</h3>
+        <p>
+          Melbourne is home to world-class arts and cultural heritage institutions, cutting-edge design and dynamic festivals and community events.
+        </p>
+      </section>
+      <section id="metro-train-station" >
+        <h3>If you are a gourmet enthusiast</h3>
+        <p>
+          Taste your way through Melbourne's exploding culinary epicentre. Embark on a 3.5-hour walking tour and discover hot spots and hidden gems around the city.
+        </p>
+      </section>
+    </div>
+    <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.5.1/mapbox-gl-geocoder.min.js"></script>
+    <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.5.1/mapbox-gl-geocoder.css" type="text/css"/>
+    <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.auto.min.js"></script>
+    <script src="javascript/map-script.js"></script>
+  </body>
 </html>
