@@ -1,0 +1,111 @@
+body{
+    font-size: 80%;
+    font-family: Avenir,cursive;
+    letter-spacing: 0.15em;
+    background-color: #d9e4dd;
+}
+
+#logo, #header, #footer, #group{
+    padding-left: 46px;
+    text-align: left;
+    width: 1200px;
+    font-weight: normal;
+    font-size: 13px;
+}
+
+#footer>p{
+    border-bottom: black;
+}
+
+#page{
+    max-width: 1200px;
+    min-width: 1200px;
+    margin: 15px auto 15px auto;
+    padding: 20px;
+    background-color: #fbf7f0;
+}
+
+#welcome{
+    width: 1200px;
+    margin: 10px auto 25px auto;
+    text-align: center;
+}
+
+ul{
+    background-color: #e7e7de;
+}
+
+li{
+    display: inline;
+    margin: 0px 3px;
+}
+
+.intro_text{
+    width: 1100px;
+}
+
+a{
+    text-decoration: none;
+}
+p{
+    text-align: center;
+    width: 600px;
+    margin: 20px auto 20px auto;
+    font-weight: normal;
+}
+.menuItems{
+    text-align: left;
+    color: black;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 6px 18px 5px 18px;
+    font-size: 16px;
+    float: left;
+    width: 1200px;
+    transition: .4s;
+}
+
+.menuItems:hover, a{
+    color: #0d7377;
+}
+
+.sutItem:hover{
+    color: #0d7377;
+}
+
+.wrap{
+    width: 1200px;
+    margin: 0 auto;
+}
+
+.menu a{
+    color: #2d3436;
+}
+
+.boa:hover .box{
+    height: 100px;
+}
+
+.box{
+    height:0;
+    overflow:auto;
+    transition:.5s;
+    left: 20px;
+    background-color:transparent;
+}
+
+.box li{
+    height:40px;
+    width: 1100px;
+    text-align: center;
+    line-height: 30px;
+    font-size: 14px;
+    font-style: normal;
+    padding-right:100px;
+}
+
+.clearfix:after{
+    content: '';
+    display: block;
+    clear: both;
+}
