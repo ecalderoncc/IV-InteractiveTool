@@ -32,7 +32,7 @@
 
     .map-overlay {
         position: absolute;
-        width: 20%;
+        width: 100%;
         top: 0;
         bottom: 0;
         left: 0;
@@ -187,12 +187,11 @@
     var listingEl = document.getElementById('feature-listing');
     var dropdownIndex = $("#dropdown option:selected").index();
     var activeLayer = dropdownIndex2LayerName(dropdownIndex);
-    console.log(activeLayer);
 
     map.on('load', function () {
 
         map.loadImage(
-            'https://raw.githubusercontent.com/ruofzhang/GEOM90007-2020-SM2-Assignment-3/main/image/3448267-placeholder/png/028-restaurant.png',
+            'https://raw.githubusercontent.com/ruofzhang/Assignment3/main/image/restaurant.png',
             function (error, image) {
                 if (error) throw error;
                 map.addImage('restaurant', image);
@@ -207,14 +206,15 @@
                     'source-layer': 'Cafes_and_restaurants__with_s-57m7oo',
                     'layout': {
                         'icon-image': 'restaurant',
-                        'icon-size': 0.08
+                        'icon-size':0.5
                     }
                 });
             }
         );
 
+
         map.loadImage(
-            'https://raw.githubusercontent.com/ruofzhang/GEOM90007-2020-SM2-Assignment-3/main/image/3448267-placeholder/png/036-train.png',
+            'https://raw.githubusercontent.com/ruofzhang/Assignment3/main/image/train.png',
             function (error, image) {
                 if (error) throw error;
                 map.addImage('tram', image);
@@ -229,7 +229,7 @@
                     'source-layer': 'City_Circle_tram_stops_1-7es78t',
                     'layout': {
                         'icon-image': 'tram',
-                        'icon-size': 0.08,
+                        'icon-size':0.5,
                         'visibility':'none'
                     }
                 });
@@ -239,12 +239,11 @@
         toggleSidebar('left');
     });
 
-
-    map.on('idle', () => {
+    map.on('idle', ()=>{
+        popup.remove();
         var features = map.queryRenderedFeatures({layers: [activeLayer]});
         renderListings(features);
     })
-
 
     map.on('mousemove', activeLayer, function (e) {
         map.getCanvas().style.cursor = 'pointer';
@@ -265,7 +264,6 @@
 
 
     function renderListings(features) {
-        var empty = document.createElement('p');
         // Clear any existing listings
         listingEl.innerHTML = '';
         if (features.length) {
@@ -317,9 +315,24 @@
     }
 
     $('#dropdown').change(function(){
-        popup.remove();
         var selectd=$(this).children('option:selected').index();
         displayActiveLayer(dropdownIndex2LayerName(selectd));
+        map.on('mousemove', activeLayer, function (e) {
+            map.getCanvas().style.cursor = 'pointer';
+
+            var feature = e.features[0];
+            popup
+                .setLngLat(feature.geometry.coordinates)
+                .setText(
+                    feature.properties['Trading name']
+                )
+                .addTo(map);
+        });
+
+        map.on('mouseleave', activeLayer, function () {
+            map.getCanvas().style.cursor = '';
+            popup.remove();
+        });
     })
 
     function toggleSidebar(id) {
@@ -330,7 +343,7 @@
         var padding = {};
 
         if (collapsed) {
-// Remove the 'collapsed' class from the class list of the element, this sets it back to the expanded state.
+            // Remove the 'collapsed' class from the class list of the element, this sets it back to the expanded state.
             classes.splice(classes.indexOf('collapsed'), 1);
 
             padding[id] = 300; // In px, matches the width of the sidebars set in .sidebar CSS class
@@ -340,7 +353,7 @@
             });
         } else {
             padding[id] = 0;
-// Add the 'collapsed' class to the class list of the element
+            // Add the 'collapsed' class to the class list of the element
             classes.push('collapsed');
 
             map.easeTo({
@@ -349,7 +362,7 @@
             });
         }
 
-// Update the class list on the element
+        // Update the class list on the element
         elem.className = classes.join(' ');
     }
 
