@@ -1,7 +1,7 @@
 # IV-InteractiveTool
 Information Visualization interactive website for exploration
 
-###htmlPage - Ruiying Wang (updated)
+### htmlPage - Ruiying Wang (updated)
 
 - The home page including:
     - `htmlPage_version1.html`
