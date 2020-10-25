@@ -1,40 +1,359 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8" />
+<head>
+    <meta charset="utf-8"/>
     <title>My Map</title>
-    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no"/>
     <script src="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link href="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css" rel="stylesheet"/>
-    <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
-    <link href="css/map-style.css" rel="stylesheet" type="text/css">
-    <!-- UIKit -->
-    <link rel="stylesheet" href="css/uikit.min.css" />
-    <script src="javascript/uikit.min.js"></script>
-    <script src="javascript/uikit-icons.min.js"></script>
-  </head>
-  <body>
-    <div id="map"></div>
-    <!-- <pre id="info">Move the cursor to show the longitude and latitude</pre> -->
-    
-    <div id="features">
-      <section id="poi" class="active">
-        <h3>If you are an art lover...</h3>
-        <p>
-          Melbourne is home to world-class arts and cultural heritage institutions, cutting-edge design and dynamic festivals and community events.
-        </p>
-      </section>
-      <section id="metro-train-station" >
-        <h3>If you are a gourmet enthusiast</h3>
-        <p>
-          Taste your way through Melbourne's exploding culinary epicentre. Embark on a 3.5-hour walking tour and discover hot spots and hidden gems around the city.
-        </p>
-      </section>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        #map {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+<script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.5.1/mapbox-gl-geocoder.min.js"></script>
+<link
+        rel="stylesheet"
+        href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.5.1/mapbox-gl-geocoder.css"
+        type="text/css"
+/>
+<style>
+
+    .map-overlay {
+        position: absolute;
+        width: 20%;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+        background-color: #fff;
+        max-height: 100%;
+        overflow: hidden;
+    }
+
+    .map-overlay fieldset {
+        display: block;
+        background: #ddd;
+        border: none;
+        padding: 10px;
+        margin: 0;
+    }
+
+    .map-overlay .listing {
+        overflow: auto;
+        max-height: 100%;
+    }
+
+    .map-overlay .listing > * {
+        display: block;
+        padding: 5px 10px;
+        margin: 0;
+    }
+
+    .map-overlay .listing a {
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        color: #404;
+        text-decoration: none;
+    }
+
+    .map-overlay .listing a:last-child {
+        border: none;
+    }
+
+    .map-overlay .listing a:hover {
+        background: #f0f0f0;
+    }
+
+    #dropdown{
+        width: 100%;
+        height: 30px;
+        border-radius: 3px;
+    }
+
+    .rounded-rect {
+        background: white;
+        border-radius: 10px;
+        box-shadow: 0 0 50px -25px black;
+    }
+
+    .flex-center {
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .flex-center.left {
+        left: 0px;
+    }
+
+    .sidebar-content {
+        position: absolute;
+        width: 95%;
+        height: 95%;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 32px;
+        color: gray;
+    }
+
+    .sidebar-toggle {
+        position: absolute;
+        width: 1.3em;
+        height: 1.3em;
+        overflow: visible;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .sidebar-toggle.left {
+        right: -1.5em;
+    }
+
+    .sidebar-toggle.right {
+        left: -1.5em;
+    }
+
+    .sidebar-toggle:hover {
+        color: #0aa1cf;
+        cursor: pointer;
+    }
+
+    .sidebar {
+        transition: transform 1s;
+        z-index: 1;
+        width: 300px;
+        height: 100%;
+    }
+
+    .left.collapsed {
+        transform: translateX(-295px);
+    }
+
+
+
+</style>
+
+<div id="map">
+    <div id="left" class="sidebar flex-center left collapsed">
+        <div class="sidebar-content rounded-rect flex-center">
+            <div class="map-overlay">
+                <fieldset>
+                    <select id="dropdown" name="dropdown">
+                        <option value="topRestaurants" selected="selected">Top Restaurants</option>
+                        <option value="topAttractions">Top Attractions</option>
+                        <option value="topNightlife">Top Nightlife</option>
+                        <option value="topAirbnbHosts">Top Airbnb Hosts</option>
+                        <option value="tramStops">Trams Stops</option>
+                    </select>
+                </fieldset>
+                <div id="feature-listing" class="listing"></div>
+            </div>
+            <div
+                    class="sidebar-toggle rounded-rect left"
+                    onclick="toggleSidebar('left')"
+            >
+                &rarr;
+            </div>
+        </div>
     </div>
-    <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.5.1/mapbox-gl-geocoder.min.js"></script>
-    <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.5.1/mapbox-gl-geocoder.css" type="text/css"/>
-    <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.auto.min.js"></script>
-    <script src="javascript/map-script.js"></script>
-  </body>
+</div>
+
+
+<script>
+    mapboxgl.accessToken = 'pk.eyJ1IjoicnVvZnpoYW5nIiwiYSI6ImNrZzZiaXQ4YTBqZjQydW56MDYza3dsYzQifQ.ieAtOqgU95WFWhrBCQJcqQ';
+    var map = new mapboxgl.Map({
+        container: 'map',
+        style: 'mapbox://styles/mapbox/light-v10',
+        center: [144.944, -37.813],
+        zoom: 14
+    });
+
+    var popup = new mapboxgl.Popup({
+        closeButton: false
+    });
+
+    var listingEl = document.getElementById('feature-listing');
+    var dropdownIndex = $("#dropdown option:selected").index();
+    var activeLayer = dropdownIndex2LayerName(dropdownIndex);
+    console.log(activeLayer);
+
+    map.on('load', function () {
+
+        map.loadImage(
+            'https://raw.githubusercontent.com/ruofzhang/GEOM90007-2020-SM2-Assignment-3/main/image/3448267-placeholder/png/028-restaurant.png',
+            function (error, image) {
+                if (error) throw error;
+                map.addImage('restaurant', image);
+                map.addSource('restaurant', {
+                    type: 'vector',
+                    url: 'mapbox://ruofzhang.a2wcaxff'
+                });
+                map.addLayer({
+                    'id': 'restaurant',
+                    'type': 'symbol',
+                    'source': 'restaurant',
+                    'source-layer': 'Cafes_and_restaurants__with_s-57m7oo',
+                    'layout': {
+                        'icon-image': 'restaurant',
+                        'icon-size': 0.08
+                    }
+                });
+            }
+        );
+
+        map.loadImage(
+            'https://raw.githubusercontent.com/ruofzhang/GEOM90007-2020-SM2-Assignment-3/main/image/3448267-placeholder/png/036-train.png',
+            function (error, image) {
+                if (error) throw error;
+                map.addImage('tram', image);
+                map.addSource('tram', {
+                    type: 'vector',
+                    url: 'mapbox://ruofzhang.2j6g22co'
+                });
+                map.addLayer({
+                    'id': 'tram',
+                    'type': 'symbol',
+                    'source': 'tram',
+                    'source-layer': 'City_Circle_tram_stops_1-7es78t',
+                    'layout': {
+                        'icon-image': 'tram',
+                        'icon-size': 0.08,
+                        'visibility':'none'
+                    }
+                });
+            }
+        );
+
+        toggleSidebar('left');
+    });
+
+
+    map.on('idle', () => {
+        var features = map.queryRenderedFeatures({layers: [activeLayer]});
+        renderListings(features);
+    })
+
+
+    map.on('mousemove', activeLayer, function (e) {
+        map.getCanvas().style.cursor = 'pointer';
+
+        var feature = e.features[0];
+        popup
+            .setLngLat(feature.geometry.coordinates)
+            .setText(
+                feature.properties['Trading name']
+            )
+            .addTo(map);
+    });
+
+    map.on('mouseleave', activeLayer, function () {
+        map.getCanvas().style.cursor = '';
+        popup.remove();
+    });
+
+
+    function renderListings(features) {
+        var empty = document.createElement('p');
+        // Clear any existing listings
+        listingEl.innerHTML = '';
+        if (features.length) {
+            features.forEach(function (feature) {
+                var prop = feature.properties;
+                var item = document.createElement('a');
+                item.innerHTML = prop['Trading name'] + '<br>' + prop['Street address'];
+                item.addEventListener('mouseover', function () {
+                    popup
+                        .setLngLat(feature.geometry.coordinates)
+                        .setText(
+                            feature.properties['Trading name'] +
+                            ' (' +
+                            feature.properties['Industry (ANZSIC4) description'] +
+                            ')'
+                        )
+                        .addTo(map);
+                });
+                item.addEventListener('mouseleave', function () {
+                    popup.remove();
+                });
+                listingEl.appendChild(item);
+            });
+        }
+    }
+
+
+    function dropdownIndex2LayerName(dropdownIndex){
+        if(dropdownIndex === 0){
+            return 'restaurant';
+        }else if(dropdownIndex === 1){
+            return 'attraction';
+        }else if(dropdownIndex === 2){
+            return 'nightlife';
+        }else if(dropdownIndex === 3){
+            return 'airbnb';
+        }else if(dropdownIndex === 4){
+            return 'tram';
+        }
+    }
+
+    function displayActiveLayer(layerName){
+        var visibility = map.getLayoutProperty(layerName, 'visibility');
+        if (visibility === 'none') {
+            map.setLayoutProperty(layerName, 'visibility', 'visible');
+            map.setLayoutProperty(activeLayer, 'visibility', 'none');
+            activeLayer = layerName;
+        }
+    }
+
+    $('#dropdown').change(function(){
+        popup.remove();
+        var selectd=$(this).children('option:selected').index();
+        displayActiveLayer(dropdownIndex2LayerName(selectd));
+    })
+
+    function toggleSidebar(id) {
+        var elem = document.getElementById(id);
+        var classes = elem.className.split(' ');
+        var collapsed = classes.indexOf('collapsed') !== -1;
+
+        var padding = {};
+
+        if (collapsed) {
+// Remove the 'collapsed' class from the class list of the element, this sets it back to the expanded state.
+            classes.splice(classes.indexOf('collapsed'), 1);
+
+            padding[id] = 300; // In px, matches the width of the sidebars set in .sidebar CSS class
+            map.easeTo({
+                padding: padding,
+                duration: 1000 // In ms, CSS transition duration property for the sidebar matches this value
+            });
+        } else {
+            padding[id] = 0;
+// Add the 'collapsed' class to the class list of the element
+            classes.push('collapsed');
+
+            map.easeTo({
+                padding: padding,
+                duration: 1000
+            });
+        }
+
+// Update the class list on the element
+        elem.className = classes.join(' ');
+    }
+
+</script>
+
+</body>
 </html>
