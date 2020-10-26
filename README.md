@@ -1,12 +1,12 @@
 # IV-InteractiveTool
 Information Visualization interactive website for exploration
 
-### htmlPage - Ruiying Wang (updated)
+### htmlPage - Ruiying Wang (26/10/2020 updated)
 
 - The home page including:
     - `htmlPage_version1.html`
     - `version1.css`
-all the following sub-pages use style file names `styles.css`   
+<br>all the following sub-pages use style file names `styles.css`   
 - The page of **Restaurants and Cafes** when clicking `RESTAURANTS & CAFES` in the home page:
     - `restaurants_cafes.html`
 - The page of **Transportation** when clicking `TRANSPORTATION` in the home page:
