@@ -172,9 +172,9 @@
 
     var map = new mapboxgl.Map({
         container: 'map',
-        style: 'mapbox://styles/mapbox/light-v10',
+        style: 'mapbox://styles/ewayeux/ckgqi8vts0j9919llk9awm4t0/draft',
         center: [144.944, -37.813],
-        zoom: 14
+        zoom: 12
     });
 
     var popup = new mapboxgl.Popup({
@@ -184,28 +184,54 @@
     var listingEl = document.getElementById('feature-listing');
     var activeLayer = $("#dropdown option:selected").val();
 
-    function addCustomIcons(imgUrl, imageId, sourceId, sourceUrl, sourceLayer,visibility){
-        map.loadImage(
-            imgUrl,
-            function (error, image) {
-                if (error) throw error;
-                map.addImage(imageId, image);
-                map.addSource(sourceId, {
-                    type: 'vector',
-                    url: 'mapbox://' + sourceUrl
-                });
-                map.addLayer({
-                    'id': sourceId,
-                    'type': 'symbol',
-                    'source': sourceId,
-                    'source-layer': sourceLayer,
-                    'layout': {
-                        'icon-image': imageId,
-                        'visibility':visibility
-                    }
-                });
-            }
-        );
+    function addCustomIcons(imgUrl, imageId, sourceId, sourceUrl, sourceLayer,visibility, filter){
+        if(filter.length === 0){
+            map.loadImage(
+                imgUrl,
+                function (error, image) {
+                    if (error) throw error;
+                    map.addImage(imageId, image);
+                    map.addSource(sourceId, {
+                        type: 'vector',
+                        url: 'mapbox://' + sourceUrl
+                    });
+                    map.addLayer({
+                        'id': sourceId,
+                        'type': 'symbol',
+                        'source': sourceId,
+                        'source-layer': sourceLayer,
+                        'layout': {
+                            'icon-image': imageId,
+                            'visibility':visibility
+                        }
+                    });
+                }
+            );
+        }else{
+            map.loadImage(
+                imgUrl,
+                function (error, image) {
+                    if (error) throw error;
+                    map.addImage(imageId, image);
+                    map.addSource(sourceId, {
+                        type: 'vector',
+                        url: 'mapbox://' + sourceUrl
+                    });
+                    map.addLayer({
+                        'id': sourceId,
+                        'type': 'symbol',
+                        'source': sourceId,
+                        'source-layer': sourceLayer,
+                        'layout': {
+                            'icon-image': imageId,
+                            'visibility':visibility
+                        },
+                        'filter':filter
+                    });
+                }
+            );
+        }
+
     }
 
     function getAttributes(layerName){
@@ -226,26 +252,46 @@
         }
     }
 
-    const iconEntertainmentUrl = 'https://raw.githubusercontent.com/ruofzhang/Assignment3/main/image/theater.png';
-    const iconLandmarkUrl = 'https://raw.githubusercontent.com/ruofzhang/Assignment3/main/image/camera.png';
-    const iconCafeUrl = 'https://raw.githubusercontent.com/ruofzhang/Assignment3/main/image/coffee-shop.png';
-    const iconMuseumUrl = 'https://raw.githubusercontent.com/ruofzhang/Assignment3/main/image/goverment.png';
-    const iconAccommodationUrl = 'https://raw.githubusercontent.com/ruofzhang/Assignment3/main/image/hotel.png'
+    const iconEntertainmentUrl = 'https://raw.githubusercontent.com/ruofzhang/Assignment3/main/image/party-2.png';
+    const iconLandmarkUrl = 'https://raw.githubusercontent.com/ruofzhang/Assignment3/main/image/star-3.png';
+    const iconCafeUrl = 'https://raw.githubusercontent.com/ruofzhang/Assignment3/main/image/coffee.png';
+    const iconMuseumUrl = 'https://raw.githubusercontent.com/ruofzhang/Assignment3/main/image/art-museum-2.png';
+    const iconAccommodationUrl = 'https://raw.githubusercontent.com/ruofzhang/Assignment3/main/image/lodging-2.png'
     const iconRestaurantUrl = 'https://raw.githubusercontent.com/ruofzhang/Assignment3/main/image/restaurant.png';
-    const iconTramUrl = 'https://raw.githubusercontent.com/ruofzhang/Assignment3/main/image/train-station.png';
+    const iconTramUrl = 'https://raw.githubusercontent.com/ruofzhang/Assignment3/main/image/tramway.png';
+
+    const topCoffeeShopsFilter = ['match', ['get', 'Number of seats'], [3240,2640,950,1000,660,560,450,380,370,367], true, false];
+    const topAirbnbHostsFilter = ['match', ['get', 'number_of_reviews'], [439,341,325,320,294,291,279,268,250,249], true, false];
+    const topRestaurantsFilter = ['match', ['get', '\"Number of patrons\"'], [0,5000,2800,1500,1100,1059,983,940,900,894,850], true, false];
 
     map.on('load', function () {
 
-        addCustomIcons(iconEntertainmentUrl, 'entertainment', 'topEntertainment', 'ewayeux.9svc5d4a', 'Top_Entertainment-18w8l5','none');
-        addCustomIcons(iconLandmarkUrl, 'landmark', 'topAttractions', 'ewayeux.7mz6vzla', 'Landmarks-371aiu','visible');
-        addCustomIcons(iconCafeUrl, 'cafe', 'topCoffeeShops', 'ewayeux.1nqdmrta', 'cafe-b2qmxh','none');
-        addCustomIcons(iconMuseumUrl, 'museum', 'museums', 'ewayeux.9z1rcuh7', 'Landmarks-crnn20','none');
-        addCustomIcons(iconAccommodationUrl, 'accommodation', 'topAirbnbHosts', 'ewayeux.9n2hijvw', 'Airbnb-4uh863','none');
-        addCustomIcons(iconRestaurantUrl, 'restaurant', 'topRestaurants', 'ewayeux.4g7zb1cw', 'Popular_BarsRestaurants_2019-93l337','none');
-        addCustomIcons(iconTramUrl, 'tram', 'tramStops', 'ewayeux.ax2t1b1q', 'City_Circle_tram_stops-axxt4t','none');
+        map.addSource('boundary', {
+            type: 'vector',
+            url: 'mapbox://ewayeux.cr2e3spf'
+        });
+        map.addLayer({
+            'id': 'boundary',
+            'type': 'line',
+            'source': 'boundary',
+            'source-layer': 'Municipal_boundary-8rpr0k',
+            'paint':{
+                'line-color':'#557571',
+                'line-width':2,
+                'line-opacity':0.5
+            }
+        });
+
+        addCustomIcons(iconEntertainmentUrl, 'entertainment', 'topEntertainment', 'ewayeux.9svc5d4a', 'Top_Entertainment-18w8l5', 'none', []);
+        addCustomIcons(iconLandmarkUrl, 'landmark', 'topAttractions', 'ewayeux.7mz6vzla', 'Landmarks-371aiu', 'visible', []);
+        addCustomIcons(iconCafeUrl, 'cafe', 'topCoffeeShops', 'ewayeux.1nqdmrta', 'cafe-b2qmxh', 'none', topCoffeeShopsFilter);
+        addCustomIcons(iconMuseumUrl, 'museum', 'museums', 'ewayeux.9z1rcuh7', 'Landmarks-crnn20', 'none', []);
+        addCustomIcons(iconAccommodationUrl, 'accommodation', 'topAirbnbHosts', 'ewayeux.9n2hijvw', 'Airbnb-4uh863', 'none', topAirbnbHostsFilter);
+        addCustomIcons(iconRestaurantUrl, 'restaurant', 'topRestaurants', 'ewayeux.4g7zb1cw', 'Popular_BarsRestaurants_2019-93l337', 'none', topRestaurantsFilter);
+        addCustomIcons(iconTramUrl, 'tram', 'tramStops', 'ewayeux.ax2t1b1q', 'City_Circle_tram_stops-axxt4t', 'none', []);
         toggleSidebar('left');
 
-        map.on('idle', ()=>{
+        map.on('idle', () => {
             popup.remove();
             var features = map.queryRenderedFeatures({layers: [activeLayer]});
             renderListings(features);
@@ -257,10 +303,10 @@
             let feature = e.features[0];
             let attributes = getAttributes(activeLayer);
             let text = '';
-            for(let i = 0; i < attributes.length; i++){
-                if(i !== attributes.length -1){
+            for (let i = 0; i < attributes.length; i++) {
+                if (i !== attributes.length - 1) {
                     text += feature.properties[attributes[i]] + '\r\n';
-                }else{
+                } else {
                     text += feature.properties[attributes[i]];
                 }
             }
@@ -275,8 +321,8 @@
             popup.remove();
         });
 
-        $('#dropdown').change(function(){
-            var selectd=$(this).children('option:selected').val();
+        $('#dropdown').change(function () {
+            var selectd = $(this).children('option:selected').val();
             displayActiveLayer(selectd);
             map.on('mousemove', activeLayer, function (e) {
                 map.getCanvas().style.cursor = 'pointer';
@@ -284,10 +330,10 @@
                 let feature = e.features[0];
                 let attributes = getAttributes(activeLayer);
                 let text = '';
-                for(let i = 0; i < attributes.length; i++){
-                    if(i !== attributes.length -1){
+                for (let i = 0; i < attributes.length; i++) {
+                    if (i !== attributes.length - 1) {
                         text += feature.properties[attributes[i]] + '\n';
-                    }else{
+                    } else {
                         text += feature.properties[attributes[i]];
                     }
                 }
@@ -304,7 +350,6 @@
         })
 
     });
-
 
 
     function renderListings(features) {
@@ -389,6 +434,8 @@
         // Update the class list on the element
         elem.className = classes.join(' ');
     }
+
+
 
 </script>
 
