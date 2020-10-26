@@ -22,12 +22,6 @@
     </style>
 </head>
 <body>
-<script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.5.1/mapbox-gl-geocoder.min.js"></script>
-<link
-        rel="stylesheet"
-        href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.5.1/mapbox-gl-geocoder.css"
-        type="text/css"
-/>
 <style>
 
     .map-overlay {
@@ -151,11 +145,13 @@
             <div class="map-overlay">
                 <fieldset>
                     <select id="dropdown" name="dropdown">
-                        <option value="topRestaurants" selected="selected">Top Restaurants</option>
-                        <option value="topAttractions">Top Attractions</option>
-                        <option value="topNightlife">Top Nightlife</option>
+                        <option value="topAttractions" selected="selected">Top Attractions</option>
+                        <option value="topRestaurants">Top Restaurants</option>
+                        <option value="topCoffeeShops">Top Coffee Shops</option>
+                        <option value="topEntertainment">Top Entertainment</option>
                         <option value="topAirbnbHosts">Top Airbnb Hosts</option>
-                        <option value="tramStops">Trams Stops</option>
+                        <option value="museums">Museums</option>
+                        <option value="tramStops">City Circle Tram Stops</option>
                     </select>
                 </fieldset>
                 <div id="feature-listing" class="listing"></div>
@@ -172,7 +168,8 @@
 
 
 <script>
-    mapboxgl.accessToken = 'pk.eyJ1IjoicnVvZnpoYW5nIiwiYSI6ImNrZzZiaXQ4YTBqZjQydW56MDYza3dsYzQifQ.ieAtOqgU95WFWhrBCQJcqQ';
+    mapboxgl.accessToken = 'pk.eyJ1IjoiZXdheWV1eCIsImEiOiJja2docjF0dHkxZHpmMnhwZHZ2bnJ6Y3dtIn0.IYFG-sIWblWzAynZ6oqQAQ';
+
     var map = new mapboxgl.Map({
         container: 'map',
         style: 'mapbox://styles/mapbox/light-v10',
@@ -185,82 +182,129 @@
     });
 
     var listingEl = document.getElementById('feature-listing');
-    var dropdownIndex = $("#dropdown option:selected").index();
-    var activeLayer = dropdownIndex2LayerName(dropdownIndex);
+    var activeLayer = $("#dropdown option:selected").val();
+
+    function addCustomIcons(imgUrl, imageId, sourceId, sourceUrl, sourceLayer,visibility){
+        map.loadImage(
+            imgUrl,
+            function (error, image) {
+                if (error) throw error;
+                map.addImage(imageId, image);
+                map.addSource(sourceId, {
+                    type: 'vector',
+                    url: 'mapbox://' + sourceUrl
+                });
+                map.addLayer({
+                    'id': sourceId,
+                    'type': 'symbol',
+                    'source': sourceId,
+                    'source-layer': sourceLayer,
+                    'layout': {
+                        'icon-image': imageId,
+                        'visibility':visibility
+                    }
+                });
+            }
+        );
+    }
+
+    function getAttributes(layerName){
+        if(layerName === 'topAttractions'){
+            return ['Feature Name','Sub Theme'];
+        }else if(layerName === 'topRestaurants'){
+            return ['\"Trading name\"','\"Street address\"'];
+        }else if(layerName === 'topCoffeeShops'){
+            return ['Trading name','Seating type','Street address'];
+        }else if(layerName === 'topEntertainment'){
+            return ['Feature Name','Sub Theme'];
+        }else if(layerName === 'topAirbnbHosts'){
+            return ['name','host_name','price','room_type'];
+        }else if(layerName === 'museums'){
+            return ['Feature Name'];
+        }else if(layerName === 'tramStops'){
+            return ['name'];
+        }
+    }
+
+    const iconEntertainmentUrl = 'https://raw.githubusercontent.com/ruofzhang/Assignment3/main/image/theater.png';
+    const iconLandmarkUrl = 'https://raw.githubusercontent.com/ruofzhang/Assignment3/main/image/camera.png';
+    const iconCafeUrl = 'https://raw.githubusercontent.com/ruofzhang/Assignment3/main/image/coffee-shop.png';
+    const iconMuseumUrl = 'https://raw.githubusercontent.com/ruofzhang/Assignment3/main/image/goverment.png';
+    const iconAccommodationUrl = 'https://raw.githubusercontent.com/ruofzhang/Assignment3/main/image/hotel.png'
+    const iconRestaurantUrl = 'https://raw.githubusercontent.com/ruofzhang/Assignment3/main/image/restaurant.png';
+    const iconTramUrl = 'https://raw.githubusercontent.com/ruofzhang/Assignment3/main/image/train-station.png';
 
     map.on('load', function () {
 
-        map.loadImage(
-            'https://raw.githubusercontent.com/ruofzhang/Assignment3/main/image/restaurant.png',
-            function (error, image) {
-                if (error) throw error;
-                map.addImage('restaurant', image);
-                map.addSource('restaurant', {
-                    type: 'vector',
-                    url: 'mapbox://ruofzhang.a2wcaxff'
-                });
-                map.addLayer({
-                    'id': 'restaurant',
-                    'type': 'symbol',
-                    'source': 'restaurant',
-                    'source-layer': 'Cafes_and_restaurants__with_s-57m7oo',
-                    'layout': {
-                        'icon-image': 'restaurant',
-                        'icon-size':0.5
-                    }
-                });
-            }
-        );
-
-
-        map.loadImage(
-            'https://raw.githubusercontent.com/ruofzhang/Assignment3/main/image/train.png',
-            function (error, image) {
-                if (error) throw error;
-                map.addImage('tram', image);
-                map.addSource('tram', {
-                    type: 'vector',
-                    url: 'mapbox://ruofzhang.2j6g22co'
-                });
-                map.addLayer({
-                    'id': 'tram',
-                    'type': 'symbol',
-                    'source': 'tram',
-                    'source-layer': 'City_Circle_tram_stops_1-7es78t',
-                    'layout': {
-                        'icon-image': 'tram',
-                        'icon-size':0.5,
-                        'visibility':'none'
-                    }
-                });
-            }
-        );
-
+        addCustomIcons(iconEntertainmentUrl, 'entertainment', 'topEntertainment', 'ewayeux.9svc5d4a', 'Top_Entertainment-18w8l5','none');
+        addCustomIcons(iconLandmarkUrl, 'landmark', 'topAttractions', 'ewayeux.7mz6vzla', 'Landmarks-371aiu','visible');
+        addCustomIcons(iconCafeUrl, 'cafe', 'topCoffeeShops', 'ewayeux.1nqdmrta', 'cafe-b2qmxh','none');
+        addCustomIcons(iconMuseumUrl, 'museum', 'museums', 'ewayeux.9z1rcuh7', 'Landmarks-crnn20','none');
+        addCustomIcons(iconAccommodationUrl, 'accommodation', 'topAirbnbHosts', 'ewayeux.9n2hijvw', 'Airbnb-4uh863','none');
+        addCustomIcons(iconRestaurantUrl, 'restaurant', 'topRestaurants', 'ewayeux.4g7zb1cw', 'Popular_BarsRestaurants_2019-93l337','none');
+        addCustomIcons(iconTramUrl, 'tram', 'tramStops', 'ewayeux.ax2t1b1q', 'City_Circle_tram_stops-axxt4t','none');
         toggleSidebar('left');
+
+        map.on('idle', ()=>{
+            popup.remove();
+            var features = map.queryRenderedFeatures({layers: [activeLayer]});
+            renderListings(features);
+        })
+
+        map.on('mousemove', activeLayer, function (e) {
+            map.getCanvas().style.cursor = 'pointer';
+
+            let feature = e.features[0];
+            let attributes = getAttributes(activeLayer);
+            let text = '';
+            for(let i = 0; i < attributes.length; i++){
+                if(i !== attributes.length -1){
+                    text += feature.properties[attributes[i]] + '\r\n';
+                }else{
+                    text += feature.properties[attributes[i]];
+                }
+            }
+            popup
+                .setLngLat(feature.geometry.coordinates)
+                .setText(text)
+                .addTo(map);
+        });
+
+        map.on('mouseleave', activeLayer, function () {
+            map.getCanvas().style.cursor = '';
+            popup.remove();
+        });
+
+        $('#dropdown').change(function(){
+            var selectd=$(this).children('option:selected').val();
+            displayActiveLayer(selectd);
+            map.on('mousemove', activeLayer, function (e) {
+                map.getCanvas().style.cursor = 'pointer';
+
+                let feature = e.features[0];
+                let attributes = getAttributes(activeLayer);
+                let text = '';
+                for(let i = 0; i < attributes.length; i++){
+                    if(i !== attributes.length -1){
+                        text += feature.properties[attributes[i]] + '\n';
+                    }else{
+                        text += feature.properties[attributes[i]];
+                    }
+                }
+                popup
+                    .setLngLat(feature.geometry.coordinates)
+                    .setText(text)
+                    .addTo(map);
+            });
+
+            map.on('mouseleave', activeLayer, function () {
+                map.getCanvas().style.cursor = '';
+                popup.remove();
+            });
+        })
+
     });
 
-    map.on('idle', ()=>{
-        popup.remove();
-        var features = map.queryRenderedFeatures({layers: [activeLayer]});
-        renderListings(features);
-    })
-
-    map.on('mousemove', activeLayer, function (e) {
-        map.getCanvas().style.cursor = 'pointer';
-
-        var feature = e.features[0];
-        popup
-            .setLngLat(feature.geometry.coordinates)
-            .setText(
-                feature.properties['Trading name']
-            )
-            .addTo(map);
-    });
-
-    map.on('mouseleave', activeLayer, function () {
-        map.getCanvas().style.cursor = '';
-        popup.remove();
-    });
 
 
     function renderListings(features) {
@@ -268,18 +312,31 @@
         listingEl.innerHTML = '';
         if (features.length) {
             features.forEach(function (feature) {
-                var prop = feature.properties;
-                var item = document.createElement('a');
-                item.innerHTML = prop['Trading name'] + '<br>' + prop['Street address'];
+                let prop = feature.properties;
+                let item = document.createElement('a');
+                let attributes = getAttributes(activeLayer);
+                let text = '';
+                for(let i = 0; i < attributes.length; i++){
+                    if(i !== attributes.length -1){
+                        text += prop[attributes[i]] + '<br>';
+                    }else{
+                        text += prop[attributes[i]];
+                    }
+                }
+                item.innerHTML = text;
                 item.addEventListener('mouseover', function () {
+                    let attributes = getAttributes(activeLayer);
+                    let text = '';
+                    for(let i = 0; i < attributes.length; i++){
+                        if(i !== attributes.length -1){
+                            text += feature.properties[attributes[i]] + '\n';
+                        }else{
+                            text += feature.properties[attributes[i]];
+                        }
+                    }
                     popup
                         .setLngLat(feature.geometry.coordinates)
-                        .setText(
-                            feature.properties['Trading name'] +
-                            ' (' +
-                            feature.properties['Industry (ANZSIC4) description'] +
-                            ')'
-                        )
+                        .setText(text)
                         .addTo(map);
                 });
                 item.addEventListener('mouseleave', function () {
@@ -291,22 +348,8 @@
     }
 
 
-    function dropdownIndex2LayerName(dropdownIndex){
-        if(dropdownIndex === 0){
-            return 'restaurant';
-        }else if(dropdownIndex === 1){
-            return 'attraction';
-        }else if(dropdownIndex === 2){
-            return 'nightlife';
-        }else if(dropdownIndex === 3){
-            return 'airbnb';
-        }else if(dropdownIndex === 4){
-            return 'tram';
-        }
-    }
-
     function displayActiveLayer(layerName){
-        var visibility = map.getLayoutProperty(layerName, 'visibility');
+        let visibility = map.getLayoutProperty(layerName, 'visibility');
         if (visibility === 'none') {
             map.setLayoutProperty(layerName, 'visibility', 'visible');
             map.setLayoutProperty(activeLayer, 'visibility', 'none');
@@ -314,26 +357,7 @@
         }
     }
 
-    $('#dropdown').change(function(){
-        var selectd=$(this).children('option:selected').index();
-        displayActiveLayer(dropdownIndex2LayerName(selectd));
-        map.on('mousemove', activeLayer, function (e) {
-            map.getCanvas().style.cursor = 'pointer';
 
-            var feature = e.features[0];
-            popup
-                .setLngLat(feature.geometry.coordinates)
-                .setText(
-                    feature.properties['Trading name']
-                )
-                .addTo(map);
-        });
-
-        map.on('mouseleave', activeLayer, function () {
-            map.getCanvas().style.cursor = '';
-            popup.remove();
-        });
-    })
 
     function toggleSidebar(id) {
         var elem = document.getElementById(id);
