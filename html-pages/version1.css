@@ -6,9 +6,9 @@ body{
 }
 
 #logo, #header, #footer, #group{
-    padding-left: 46px;
+    /*padding-left: 46px;*/
     text-align: left;
-    width: 1200px;
+    width: 90%;
     font-weight: normal;
     font-size: 13px;
 }
@@ -18,15 +18,16 @@ body{
 }
 
 #page{
-    max-width: 1200px;
-    min-width: 1200px;
+    max-width: 90%;
+    min-width: 90%;
     margin: 15px auto 15px auto;
     padding: 20px;
     background-color: #fbf7f0;
 }
 
 #welcome{
-    width: 1200px;
+    /*width: 1200px;*/
+    width: 90%;
     margin: 10px auto 25px auto;
     text-align: center;
 }
@@ -41,7 +42,8 @@ li{
 }
 
 .intro_text{
-    width: 1100px;
+    /*width: 1200px;*/
+    width: 100%;
 }
 
 a{
@@ -49,7 +51,8 @@ a{
 }
 p{
     text-align: center;
-    width: 600px;
+    /*width: 600px;*/
+    width: 50%;
     margin: 20px auto 20px auto;
     font-weight: normal;
 }
@@ -59,7 +62,7 @@ p{
     text-transform: uppercase;
     text-decoration: none;
     padding: 6px 18px 5px 18px;
-    font-size: 16px;
+    font-size: 15px;
     float: left;
     width: 1200px;
     transition: .4s;
@@ -96,7 +99,7 @@ p{
 
 .box li{
     height:40px;
-    width: 1100px;
+    width: 110px;
     text-align: center;
     line-height: 30px;
     font-size: 14px;

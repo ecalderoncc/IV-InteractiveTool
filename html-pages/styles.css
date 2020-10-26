@@ -7,7 +7,7 @@ body{
 #logo, #header, #footer, #group{
     padding-left: 46px;
     text-align: left;
-    width: 1200px;
+    width: 90%;
     font-weight: normal;
     font-size: 13px;
 }
@@ -18,8 +18,8 @@ body{
 
 
 .page{
-    max-width: 1200px;
-    min-width: 1200px;
+    max-width: 90%;
+    min-width: 90%;
     margin: 15px auto 15px auto;
     padding: 20px;
     background-color: #fbf7f0;
@@ -30,12 +30,12 @@ body{
 }
 
 .text{
-    padding: 50px;
-    width: 1200px;
+    padding: 70px;
+    width: 95%;
 }
 
 h3, p{
-    width: 900px;
+    width: 75%;
     text-align: left;
 }
 
@@ -55,7 +55,7 @@ select{
     letter-spacing: 0.15em;
     border: none;
     outline: none;
-    width:1100px;
+    width: 95%;
     height: 40px;
     line-height: 40px;
     appearance: none;
@@ -69,13 +69,13 @@ select{
     margin-bottom: 50px;
 }
 .pic{
-    width: 850px;
+    width: 75%;
     height: 700px;
 }
 .lists{
-    width: 200px;
+    width: 20%;
     height: 700px;
-    margin-left: 50px;
+    margin-left: 0px;
 }
 
 .pic, .lists{
@@ -94,5 +94,6 @@ i{
     border-bottom: #968c83 3px;
 }
 .map{
+    width: 95%;
     padding-bottom: 50px;
 }

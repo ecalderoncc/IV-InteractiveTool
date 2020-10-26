@@ -3,33 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <title>Tourist Map of Melbourne</title>
-    <script type="text/javascript">
-        function dispArts() {
-            document.getElementsByClassName('Arts').style.display = 'block';
-        }
-        function dispRest() {
-            document.getElementsByClassName('Restaurants').style.display = 'block';
-        }
-        function dispTrans() {
-            document.getElementsByClassName('Transportation').style.display = 'block';
-        }
-        function dispHotels() {
-            document.getElementsByClassName('Hotels').style.display = 'block';
-        }
-
-        function outArts() {
-            document.getElementsByClassName('Arts').style.display = 'none';
-        }
-        function outRest() {
-            document.getElementsByClassName('Restaurants').style.display = 'none';
-        }
-        function outTrans() {
-            document.getElementsByClassName('Transportation').style.display = 'none';
-        }
-        function outHotels() {
-            document.getElementsByClassName('Hotels').style.display = 'none';
-        }
-    </script>
     <link rel="stylesheet" type="text/css" href="version1.css">
 </head>
 <body>
@@ -41,22 +14,24 @@
 <!--main page-->
 <div id="page">
     <div id="welcome">
-        <h1>Welcome to Melbourne</h1>
+        <h1 style="text-align: center">Welcome to Melbourne</h1>
     </div>
 
-    <div class="intro_text">
-        <p><b><u>About Melbourne</u></b></p>
+    <div class="intro_text" style="text-align: center">
+        <p style="text-align: center"><b><u>About Melbourne</u></b></p>
         <p style="font-size: 14px">Equal parts dynamic, cosmopolitan, sports-mad and arty, Melbourne simultaneously exudes style and keeps its best spots hidden, inviting discovery by food and culture lovers.</p>
     </div>
     <nav>
         <div class="wrap">
             <ul class="menu clearfix">
                 <li class="boa">
-                    <a href="" class="menuItems">Recommendation</a>
+                    <a href="entertainment.html" class="menuItems">Entertainment</a>
                     <ul class="box">
-                        <li><a href="" class="sutItem">Top Restaurants</a></li>
-                        <li><a href="" class="sutItem">Top Hotels</a></li>
-                        <li><a href="" class="sutItem">Top Attractions</a></li>
+                        <li><a href="" class="sutItem">Gardens</a></li>
+                        <li><a href="" class="sutItem">Theatres</a></li>
+                        <li><a href="" class="sutItem">Indoor</a></li>
+                        <li><a href="" class="sutItem">Outdoor</a></li>
+                        <li><a href="" class="sutItem">Sports</a></li>
                     </ul>
                 </li>
 
@@ -94,15 +69,13 @@
                     <ul class="box">
                         <li><a href="" class="sutItem">Museums</a></li>
                         <li><a href="" class="sutItem">Churches</a></li>
+                        <li><a href="" class="sutItem">Landmarks</a></li>
                     </ul>
                 </li>
-
             </ul>
         </div>
-
     </nav>
-
-</div><!--page-->
+</div>
 <div id="footer">
     <p id="group">Made by group 40 of GEOM90007 Information Visualization</p>
 </div>
