@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>Lovely Melbourne</title>
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no"/>
+    <script src="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link href="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/map-style.css">
+</head>
+<body>
+    <div id="logo">
+        <p id="header">Know more about the city of Melbourne.</p>
+    </div>
+    <div class="page">
+        <label class="switch">
+            <input type="checkbox" id="mapToDarkCheckBox" onclick="switchLayer()">
+            <span class="slider round"></span>
+        </label>
+    </div>
+    <div class="page">
+        <div class="header" style="border-bottom: black 20px">
+            <h1>Lovely Melbourne</h1>
+            <hr style="width: 93%"/>
+        </div>
+        <div class="text_map">
+            <div class="text" style="width: 95%">
+                <h2>If you are a gourmet enthusiast...</h2>
+                <p style="font-size: 15px; width: 95%;">
+                    Taste your way through Melbourne's exploding culinary epicentre. Embark on a 3.5-hour walking tour
+                    and discover hot spots and hidden gems around the city.<br />
+                    Melbourne's awash with high quality bars, cafes and restaurants, so you're always guaranteed to get a satisfying meal. From quick bites to magical dining experiences, Melbourne's got your bases covered. It's simply the best place to be in Australia for a top table experience.
+    
+                    From bars and restaurants bestowed with awards from the Good Food Guide, Australian Gourmet Traveller
+                    and TimeOut, to tucked-away places treasured by locals, there's a selection of old favourites and new kids on the block. Discover Melbourne's best restaurants.
+                </p>
+                <p class="whetherTop" style="font-size: 14px;  padding-bottom: 20px"><b>
+                    Browsing the restaurants and cafes located in Melbourne:
+                </b></p>
+                <select id="dropdown" name="rests" style="font-size: 14px;">
+                    <!-- <option value="TopRest">Top Restaurants</option>
+                    <option value="TopCafe">Top Cafes</option>
+                    <option value="AllRest">All Restaurants</option>
+                    <option value="AllCafes">All Cafes</option> -->
+                    <option value="topAttractions" selected="selected">Attractions</option>
+                    <option value="topRestaurants">Restaurants</option>
+                    <option value="topCoffeeShops">Coffee Shops</option>
+                    <option value="topEntertainment">Entertainment</option>
+                    <option value="topAirbnbHosts">Airbnb Hosts</option>
+                    <option value="museums">Museums</option>
+                    <option value="tramStops">City Circle Tram Stops</option>
+                </select>
+            </div>
+            <section class="map_box_container">
+                <div id="map">
+                    <div id="left" class="sidebar flex-center left collapsed">
+                        <div class="sidebar-content rounded-rect flex-center">
+                            <div class="map-overlay">
+                                <!-- <fieldset>
+                                    <select id="dropdown" name="dropdown">
+                                        <option value="topAttractions" selected="selected">Top Attractions</option>
+                                        <option value="topRestaurants">Top Restaurants</option>
+                                        <option value="topCoffeeShops">Top Coffee Shops</option>
+                                        <option value="topEntertainment">Top Entertainment</option>
+                                        <option value="topAirbnbHosts">Top Airbnb Hosts</option>
+                                        <option value="museums">Museums</option>
+                                        <option value="tramStops">City Circle Tram Stops</option>
+                                    </select>
+                                </fieldset> -->
+                                <fieldset>
+                                    <label class="switch">
+                                        Top 10
+                                    </label>
+                                    <label class="switch">
+                                        <input type="checkbox" id="showTop10Checkbox" onclick="showTop10()">
+                                        <span class="slider round"></span>
+                                    </label>
+                                </fieldset>
+                                <div id="feature-listing" class="listing"></div>
+                            </div>
+                            <div
+                                    class="sidebar-toggle rounded-rect left"
+                                    onclick="toggleSidebar('left')"
+                            >
+                                &rarr;
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <div>
+
+            </div>
+        </div>
+    </div>
+
+    
+
+
+<script>
+    mapboxgl.accessToken = 'pk.eyJ1IjoiZXdheWV1eCIsImEiOiJja2docjF0dHkxZHpmMnhwZHZ2bnJ6Y3dtIn0.IYFG-sIWblWzAynZ6oqQAQ';
+
+    var map = new mapboxgl.Map({
+        container: 'map',
+        style: 'mapbox://styles/ewayeux/ckgqi8vts0j9919llk9awm4t0/draft',
+        center: [144.944, -37.813],
+        zoom: 12
+    });
+
+    map.addControl(new mapboxgl.FullscreenControl());
+
+    var checkBox = document.getElementById("mapToDarkCheckBox");
+    
+    function switchLayer() {
+        if (checkBox.checked == true){
+            map.setStyle('mapbox://styles/mapbox/dark-v10');
+        } else {
+            map.setStyle('mapbox://styles/ewayeux/ckgqi8vts0j9919llk9awm4t0/draft');
+        }
+    }
+    
+    var popup = new mapboxgl.Popup({
+        closeButton: false
+    });
+
+    var listingEl = document.getElementById('feature-listing');
+    var activeLayer = $("#dropdown option:selected").val();
+
+    function addCustomIcons(imgUrl, imageId, sourceId, sourceUrl, sourceLayer,visibility, filter){
+        if(filter.length === 0){
+            map.loadImage(
+                imgUrl,
+                function (error, image) {
+                    if (error) throw error;
+                    map.addImage(imageId, image);
+                    map.addSource(sourceId, {
+                        type: 'vector',
+                        url: 'mapbox://' + sourceUrl
+                    });
+                    map.addLayer({
+                        'id': sourceId,
+                        'type': 'symbol',
+                        'source': sourceId,
+                        'source-layer': sourceLayer,
+                        'layout': {
+                            'icon-image': imageId,
+                            'visibility':visibility
+                        }
+                    });
+                }
+            );
+        }else{
+            map.loadImage(
+                imgUrl,
+                function (error, image) {
+                    if (error) throw error;
+                    map.addImage(imageId, image);
+                    map.addSource(sourceId, {
+                        type: 'vector',
+                        url: 'mapbox://' + sourceUrl
+                    });
+                    map.addLayer({
+                        'id': sourceId,
+                        'type': 'symbol',
+                        'source': sourceId,
+                        'source-layer': sourceLayer,
+                        'layout': {
+                            'icon-image': imageId,
+                            'visibility':visibility
+                        },
+                        'filter':filter
+                    });
+                }
+            );
+        }
+
+    }
+
+    function getAttributes(layerName){
+        if(layerName === 'topAttractions'){
+            return ['Feature Name','Sub Theme'];
+        }else if(layerName === 'topRestaurants'){
+            return ['\"Trading name\"','\"Street address\"'];
+        }else if(layerName === 'topCoffeeShops'){
+            return ['Trading name','Seating type','Street address'];
+        }else if(layerName === 'topEntertainment'){
+            return ['Feature Name','Sub Theme'];
+        }else if(layerName === 'topAirbnbHosts'){
+            return ['name','host_name','price','room_type'];
+        }else if(layerName === 'museums'){
+            return ['Feature Name'];
+        }else if(layerName === 'tramStops'){
+            return ['name'];
+        }
+    }
+
+    const iconEntertainmentUrl = 'https://raw.githubusercontent.com/ruofzhang/Assignment3/main/image/party-2.png';
+    const iconLandmarkUrl = 'https://raw.githubusercontent.com/ruofzhang/Assignment3/main/image/star-3.png';
+    const iconCafeUrl = 'https://raw.githubusercontent.com/ruofzhang/Assignment3/main/image/coffee.png';
+    const iconMuseumUrl = 'https://raw.githubusercontent.com/ruofzhang/Assignment3/main/image/art-museum-2.png';
+    const iconAccommodationUrl = 'https://raw.githubusercontent.com/ruofzhang/Assignment3/main/image/lodging-2.png'
+    const iconRestaurantUrl = 'https://raw.githubusercontent.com/ruofzhang/Assignment3/main/image/restaurant.png';
+    const iconTramUrl = 'https://raw.githubusercontent.com/ruofzhang/Assignment3/main/image/tramway.png';
+
+    const topCoffeeShopsFilter = ['match', ['get', 'Number of seats'], [3240,2640,950,1000,660,560,450,380,370,367], true, false];
+    const topAirbnbHostsFilter = ['match', ['get', 'number_of_reviews'], [439,341,325,320,294,291,279,268,250,249], true, false];
+    const topRestaurantsFilter = ['match', ['get', '\"Number of patrons\"'], [0,5000,2800,1500,1100,1059,983,940,900,894,850], true, false];
+
+    map.on('load', function () {
+
+        map.resize();
+
+        map.addSource('boundary', {
+            type: 'vector',
+            url: 'mapbox://ewayeux.cr2e3spf'
+        });
+        map.addLayer({
+            'id': 'boundary',
+            'type': 'line',
+            'source': 'boundary',
+            'source-layer': 'Municipal_boundary-8rpr0k',
+            'paint':{
+                'line-color':'#557571',
+                'line-width':2,
+                'line-opacity':0.5
+            }
+        });
+
+        addCustomIcons(iconEntertainmentUrl, 'entertainment', 'topEntertainment', 'ewayeux.9svc5d4a', 'Top_Entertainment-18w8l5', 'none', []);
+        addCustomIcons(iconLandmarkUrl, 'landmark', 'topAttractions', 'ewayeux.7mz6vzla', 'Landmarks-371aiu', 'visible', []);
+        addCustomIcons(iconCafeUrl, 'cafe', 'topCoffeeShops', 'ewayeux.1nqdmrta', 'cafe-b2qmxh', 'none', topCoffeeShopsFilter);
+        addCustomIcons(iconMuseumUrl, 'museum', 'museums', 'ewayeux.9z1rcuh7', 'Landmarks-crnn20', 'none', []);
+        addCustomIcons(iconAccommodationUrl, 'accommodation', 'topAirbnbHosts', 'ewayeux.9n2hijvw', 'Airbnb-4uh863', 'none', topAirbnbHostsFilter);
+        addCustomIcons(iconRestaurantUrl, 'restaurant', 'topRestaurants', 'ewayeux.4g7zb1cw', 'Popular_BarsRestaurants_2019-93l337', 'none', topRestaurantsFilter);
+        addCustomIcons(iconTramUrl, 'tram', 'tramStops', 'ewayeux.ax2t1b1q', 'City_Circle_tram_stops-axxt4t', 'none', []);
+        toggleSidebar('left');
+
+        map.on('idle', () => {
+            popup.remove();
+            var features = map.queryRenderedFeatures({layers: [activeLayer]});
+            renderListings(features);
+        })
+
+        map.on('mousemove', activeLayer, function (e) {
+            map.getCanvas().style.cursor = 'pointer';
+
+            let feature = e.features[0];
+            let attributes = getAttributes(activeLayer);
+            let text = '';
+            for (let i = 0; i < attributes.length; i++) {
+                if (i !== attributes.length - 1) {
+                    text += feature.properties[attributes[i]] + '\r\n';
+                } else {
+                    text += feature.properties[attributes[i]];
+                }
+            }
+            popup
+                .setLngLat(feature.geometry.coordinates)
+                .setText(text)
+                .addTo(map);
+        });
+
+        map.on('mouseleave', activeLayer, function () {
+            map.getCanvas().style.cursor = '';
+            popup.remove();
+        });
+
+        $('#dropdown').change(function () {
+            var selectd = $(this).children('option:selected').val();
+            displayActiveLayer(selectd);
+            map.on('mousemove', activeLayer, function (e) {
+                map.getCanvas().style.cursor = 'pointer';
+
+                let feature = e.features[0];
+                let attributes = getAttributes(activeLayer);
+                let text = '';
+                for (let i = 0; i < attributes.length; i++) {
+                    if (i !== attributes.length - 1) {
+                        text += feature.properties[attributes[i]] + '\n';
+                    } else {
+                        text += feature.properties[attributes[i]];
+                    }
+                }
+                popup
+                    .setLngLat(feature.geometry.coordinates)
+                    .setText(text)
+                    .addTo(map);
+            });
+
+            map.on('mouseleave', activeLayer, function () {
+                map.getCanvas().style.cursor = '';
+                popup.remove();
+            });
+        })
+
+    });
+
+
+    function renderListings(features) {
+        // Clear any existing listings
+        listingEl.innerHTML = '';
+        if (features.length) {
+            features.forEach(function (feature) {
+                let prop = feature.properties;
+                let item = document.createElement('a');
+                let attributes = getAttributes(activeLayer);
+                let text = '';
+                for(let i = 0; i < attributes.length; i++){
+                    if(i !== attributes.length -1){
+                        text += prop[attributes[i]] + '<br>';
+                    }else{
+                        text += prop[attributes[i]];
+                    }
+                }
+                item.innerHTML = text;
+                item.addEventListener('mouseover', function () {
+                    let attributes = getAttributes(activeLayer);
+                    let text = '';
+                    for(let i = 0; i < attributes.length; i++){
+                        if(i !== attributes.length -1){
+                            text += feature.properties[attributes[i]] + '\n';
+                        }else{
+                            text += feature.properties[attributes[i]];
+                        }
+                    }
+                    popup
+                        .setLngLat(feature.geometry.coordinates)
+                        .setText(text)
+                        .addTo(map);
+                });
+                item.addEventListener('mouseleave', function () {
+                    popup.remove();
+                });
+                listingEl.appendChild(item);
+            });
+        }
+    }
+
+
+    function displayActiveLayer(layerName){
+        let visibility = map.getLayoutProperty(layerName, 'visibility');
+        if (visibility === 'none') {
+            map.setLayoutProperty(layerName, 'visibility', 'visible');
+            map.setLayoutProperty(activeLayer, 'visibility', 'none');
+            activeLayer = layerName;
+        }
+    }
+
+
+
+    function toggleSidebar(id) {
+        var elem = document.getElementById(id);
+        var classes = elem.className.split(' ');
+        var collapsed = classes.indexOf('collapsed') !== -1;
+
+        var padding = {};
+
+        if (collapsed) {
+            // Remove the 'collapsed' class from the class list of the element, this sets it back to the expanded state.
+            classes.splice(classes.indexOf('collapsed'), 1);
+
+            padding[id] = 300; // In px, matches the width of the sidebars set in .sidebar CSS class
+            map.easeTo({
+                padding: padding,
+                duration: 1000 // In ms, CSS transition duration property for the sidebar matches this value
+            });
+        } else {
+            padding[id] = 0;
+            // Add the 'collapsed' class to the class list of the element
+            classes.push('collapsed');
+
+            map.easeTo({
+                padding: padding,
+                duration: 1000
+            });
+        }
+
+        // Update the class list on the element
+        elem.className = classes.join(' ');
+    }
+
+
+
+</script>
+
+</body>
+</html>
