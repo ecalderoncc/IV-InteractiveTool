@@ -14,12 +14,12 @@
     <div id="logo">
         <p id="header">Know more about the city of Melbourne.</p>
     </div>
-    <div class="page">
+    <!-- <div class="page">
         <label class="switch">
             <input type="checkbox" id="mapToDarkCheckBox" onclick="switchLayer()">
             <span class="slider round"></span>
         </label>
-    </div>
+    </div> -->
     <div class="page">
         <div class="header" style="border-bottom: black 20px">
             <h1>Lovely Melbourne</h1>
@@ -44,11 +44,11 @@
                     <option value="TopCafe">Top Cafes</option>
                     <option value="AllRest">All Restaurants</option>
                     <option value="AllCafes">All Cafes</option> -->
-                    <option value="topAttractions" selected="selected">Attractions</option>
-                    <option value="topRestaurants">Restaurants</option>
-                    <option value="topCoffeeShops">Coffee Shops</option>
+                    <option value="topAttractions" selected="selected">Top Attractions</option>
+                    <option value="Restaurants">Restaurants</option>
+                    <option value="CoffeeShops">Coffee Shops</option>
                     <option value="topEntertainment">Entertainment</option>
-                    <option value="topAirbnbHosts">Airbnb Hosts</option>
+                    <option value="AirbnbHosts">Airbnb Hosts</option>
                     <option value="museums">Museums</option>
                     <option value="tramStops">City Circle Tram Stops</option>
                 </select>
@@ -69,13 +69,13 @@
                                         <option value="tramStops">City Circle Tram Stops</option>
                                     </select>
                                 </fieldset> -->
-                                <fieldset>
-                                    <label class="switch">
-                                        Top 10
+                                <fieldset id="seeTopField">
+                                    <label>
+                                        See top 10
                                     </label>
-                                    <label class="switch">
+                                    <label>
                                         <input type="checkbox" id="showTop10Checkbox" onclick="showTop10()">
-                                        <span class="slider round"></span>
+                                        <span ></span>
                                     </label>
                                 </fieldset>
                                 <div id="feature-listing" class="listing"></div>
@@ -111,15 +111,14 @@
 
     map.addControl(new mapboxgl.FullscreenControl());
 
-    var checkBox = document.getElementById("mapToDarkCheckBox");
     
-    function switchLayer() {
+    /*function switchLayer() {
         if (checkBox.checked == true){
             map.setStyle('mapbox://styles/mapbox/dark-v10');
         } else {
             map.setStyle('mapbox://styles/ewayeux/ckgqi8vts0j9919llk9awm4t0/draft');
         }
-    }
+    }*/
     
     var popup = new mapboxgl.Popup({
         closeButton: false
@@ -181,13 +180,13 @@
     function getAttributes(layerName){
         if(layerName === 'topAttractions'){
             return ['Feature Name','Sub Theme'];
-        }else if(layerName === 'topRestaurants'){
+        }else if(layerName === 'Restaurants' || layerName === 'topRestaurants'){
             return ['\"Trading name\"','\"Street address\"'];
-        }else if(layerName === 'topCoffeeShops'){
+        }else if(layerName === 'CoffeeShops' || layerName === 'topCoffeeShops'){
             return ['Trading name','Seating type','Street address'];
         }else if(layerName === 'topEntertainment'){
             return ['Feature Name','Sub Theme'];
-        }else if(layerName === 'topAirbnbHosts'){
+        }else if(layerName === 'AirbnbHosts' || layerName === 'topAirbnbHosts'){
             return ['name','host_name','price','room_type'];
         }else if(layerName === 'museums'){
             return ['Feature Name'];
@@ -207,6 +206,46 @@
     const topCoffeeShopsFilter = ['match', ['get', 'Number of seats'], [3240,2640,950,1000,660,560,450,380,370,367], true, false];
     const topAirbnbHostsFilter = ['match', ['get', 'number_of_reviews'], [439,341,325,320,294,291,279,268,250,249], true, false];
     const topRestaurantsFilter = ['match', ['get', '\"Number of patrons\"'], [0,5000,2800,1500,1100,1059,983,940,900,894,850], true, false];
+
+    var checkBox = document.getElementById("showTop10Checkbox");
+
+    function showTop10() {
+        if (checkBox.checked == true){
+            if(activeLayer === 'Restaurants'){
+                var tempLayerName = 'topRestaurants';
+                displayActiveLayer(tempLayerName);
+                var features = map.queryRenderedFeatures({layers: [tempLayerName]});
+                renderListings(features);
+            }else if(activeLayer === 'CoffeeShops'){
+                var tempLayerName = 'topCoffeeShops';
+                displayActiveLayer(tempLayerName);
+                var features = map.queryRenderedFeatures({layers: [tempLayerName]});
+                renderListings(features);
+            }else if(activeLayer === 'AirbnbHosts'){
+                var tempLayerName = 'topAirbnbHosts';
+                displayActiveLayer(tempLayerName);
+                var features = map.queryRenderedFeatures({layers: [tempLayerName]});
+                renderListings(features);
+            }
+        }else if(checkBox.checked == false){
+            if(activeLayer === 'Restaurants'){
+                var tempLayerName = 'Restaurants';
+                displayActiveLayer(tempLayerName);
+                var features = map.queryRenderedFeatures({layers: [tempLayerName]});
+                renderListings(features);
+            }else if(activeLayer === 'CoffeeShops'){
+                var tempLayerName = 'CoffeeShops';
+                displayActiveLayer(tempLayerName);
+                var features = map.queryRenderedFeatures({layers: [tempLayerName]});
+                renderListings(features);
+            }else if(activeLayer === 'AirbnbHosts'){
+                var tempLayerName = 'AirbnbHosts';
+                displayActiveLayer(tempLayerName);
+                var features = map.queryRenderedFeatures({layers: [tempLayerName]});
+                renderListings(features);
+            }
+        } 
+    }
 
     map.on('load', function () {
 
@@ -230,10 +269,13 @@
 
         addCustomIcons(iconEntertainmentUrl, 'entertainment', 'topEntertainment', 'ewayeux.9svc5d4a', 'Top_Entertainment-18w8l5', 'none', []);
         addCustomIcons(iconLandmarkUrl, 'landmark', 'topAttractions', 'ewayeux.7mz6vzla', 'Landmarks-371aiu', 'visible', []);
-        addCustomIcons(iconCafeUrl, 'cafe', 'topCoffeeShops', 'ewayeux.1nqdmrta', 'cafe-b2qmxh', 'none', topCoffeeShopsFilter);
+        addCustomIcons(iconCafeUrl, 'cafe', 'CoffeeShops', 'ewayeux.1nqdmrta', 'cafe-b2qmxh', 'none', []);
+        addCustomIcons(iconCafeUrl, 'topcafe', 'topCoffeeShops', 'ewayeux.1nqdmrta', 'cafe-b2qmxh', 'none', topCoffeeShopsFilter);
         addCustomIcons(iconMuseumUrl, 'museum', 'museums', 'ewayeux.9z1rcuh7', 'Landmarks-crnn20', 'none', []);
-        addCustomIcons(iconAccommodationUrl, 'accommodation', 'topAirbnbHosts', 'ewayeux.9n2hijvw', 'Airbnb-4uh863', 'none', topAirbnbHostsFilter);
-        addCustomIcons(iconRestaurantUrl, 'restaurant', 'topRestaurants', 'ewayeux.4g7zb1cw', 'Popular_BarsRestaurants_2019-93l337', 'none', topRestaurantsFilter);
+        addCustomIcons(iconAccommodationUrl, 'accommodation', 'AirbnbHosts', 'ewayeux.9n2hijvw', 'Airbnb-4uh863', 'none', []);
+        addCustomIcons(iconAccommodationUrl, 'topaccommodation', 'topAirbnbHosts', 'ewayeux.9n2hijvw', 'Airbnb-4uh863', 'none', topAirbnbHostsFilter);
+        addCustomIcons(iconRestaurantUrl, 'restaurant', 'Restaurants', 'ewayeux.4g7zb1cw', 'Popular_BarsRestaurants_2019-93l337', 'none', []);
+        addCustomIcons(iconRestaurantUrl, 'toprestaurant', 'topRestaurants', 'ewayeux.4g7zb1cw', 'Popular_BarsRestaurants_2019-93l337', 'none', topRestaurantsFilter);
         addCustomIcons(iconTramUrl, 'tram', 'tramStops', 'ewayeux.ax2t1b1q', 'City_Circle_tram_stops-axxt4t', 'none', []);
         toggleSidebar('left');
 
@@ -268,7 +310,14 @@
         });
 
         $('#dropdown').change(function () {
+            document.getElementById("showTop10Checkbox").checked = false;
             var selectd = $(this).children('option:selected').val();
+            if(selectd === 'topAttractions' || selectd === 'topEntertainment' || selectd === 'museums'|| selectd === 'tramStops'){
+                document.getElementById("seeTopField").style.display = "none";
+            }else{
+                document.getElementById("seeTopField").style.display = "block";
+            }
+            
             displayActiveLayer(selectd);
             map.on('mousemove', activeLayer, function (e) {
                 map.getCanvas().style.cursor = 'pointer';
