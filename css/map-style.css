@@ -139,7 +139,7 @@ body {
 /**************** Page ****************/
 
 #logo, #header, #footer, #group{
-  padding-left: 26px;
+  padding-left: 46px;
   text-align: left;
   width:auto;
   font-weight: normal;
@@ -228,6 +228,23 @@ i{
   height: 100px;
   border-bottom: #968c83 3px;
 }
+
+.listItemTitle{
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+}
+
+.listItemBody{
+  margin: 0 0;
+}
+
+i{
+  color: #666666;
+  font-size: 10px;
+}
+
+
+
 /********Design*********/
 /* The switch - the box around the slider */
 .switch {

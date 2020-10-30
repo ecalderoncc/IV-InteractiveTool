@@ -7,85 +7,89 @@
     <script src="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link href="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css" rel="stylesheet"/>
-    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap"
+          rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="css/map-style.css">
 </head>
 <body>
-    <div id="logo">
-        <p id="header">Know more about the city of Melbourne.</p>
+<div id="logo">
+    <p id="header">Know more about the city of Melbourne.</p>
+</div>
+<div class="page">
+    <label class="switch">
+        <input type="checkbox" id="mapToDarkCheckBox" onclick="switchLayer()">
+        <span class="slider round"></span>
+    </label>
+</div>
+<div class="page">
+    <div class="header" style="border-bottom: black 20px">
+        <h1>Lovely Melbourne</h1>
+        <hr style="width: 93%"/>
     </div>
-    <div class="page">
-        <label class="switch">
-            <input type="checkbox" id="mapToDarkCheckBox" onclick="switchLayer()">
-            <span class="slider round"></span>
-        </label>
-    </div>
-    <div class="page">
-        <div class="header" style="border-bottom: black 20px">
-            <h1>Lovely Melbourne</h1>
-            <hr style="width: 93%"/>
+    <div class="text_map">
+        <div class="text" style="width: 95%">
+            <h2>If you are a gourmet enthusiast...</h2>
+            <p style="font-size: 15px; width: 93%;">
+                Taste your way through Melbourne's exploding culinary epicentre. Embark on a 3.5-hour walking tour
+                and discover hot spots and hidden gems around the city.<br/>
+                Melbourne's awash with high quality bars, cafes and restaurants, so you're always guaranteed to get a
+                satisfying meal. From quick bites to magical dining experiences, Melbourne's got your bases covered.
+                It's simply the best place to be in Australia for a top table experience.
+
+                From bars and restaurants bestowed with awards from the Good Food Guide, Australian Gourmet Traveller
+                and TimeOut, to tucked-away places treasured by locals, there's a selection of old favourites and new
+                kids on the block. Discover Melbourne's best restaurants.
+            </p>
+            <p class="whetherTop" style="font-size: 14px;  padding-bottom: 20px"><b>
+                Browsing the restaurants and cafes located in Melbourne:
+            </b></p>
+            <select id="dropdown" name="dropdown" style="font-size: 14px; width: 93%">
+                <!-- <option value="TopRest">Top Restaurants</option>
+                <option value="TopCafe">Top Cafes</option>
+                <option value="AllRest">All Restaurants</option>
+                <option value="AllCafes">All Cafes</option> -->
+                <option value="topAttractions" selected="selected">Top Attractions</option>
+                <option value="Restaurants">Restaurants</option>
+                <option value="CoffeeShops">Coffee Shops</option>
+                <option value="topEntertainment">Entertainment</option>
+                <option value="AirbnbHosts">Airbnb Hosts</option>
+                <option value="museums">Museums</option>
+                <option value="tramStops">City Circle Tram Stops</option>
+            </select>
         </div>
-        <div class="text_map">
-            <div class="text" style="width: 95%">
-                <h2>If you are a gourmet enthusiast...</h2>
-                <p style="font-size: 15px; width: 93%;">
-                    Taste your way through Melbourne's exploding culinary epicentre. Embark on a 3.5-hour walking tour
-                    and discover hot spots and hidden gems around the city.<br />
-                    Melbourne's awash with high quality bars, cafes and restaurants, so you're always guaranteed to get a satisfying meal. From quick bites to magical dining experiences, Melbourne's got your bases covered. It's simply the best place to be in Australia for a top table experience.
-    
-                    From bars and restaurants bestowed with awards from the Good Food Guide, Australian Gourmet Traveller
-                    and TimeOut, to tucked-away places treasured by locals, there's a selection of old favourites and new kids on the block. Discover Melbourne's best restaurants.
-                </p>
-                <p class="whetherTop" style="font-size: 14px;  padding-bottom: 20px"><b>
-                    Browsing the restaurants and cafes located in Melbourne:
-                </b></p>
-                <select id="dropdown" name="dropdown" style="font-size: 14px; width: 93%">
-                    <!-- <option value="TopRest">Top Restaurants</option>
-                    <option value="TopCafe">Top Cafes</option>
-                    <option value="AllRest">All Restaurants</option>
-                    <option value="AllCafes">All Cafes</option> -->
-                    <option value="topAttractions" selected="selected">Top Attractions</option>
-                    <option value="Restaurants">Restaurants</option>
-                    <option value="CoffeeShops">Coffee Shops</option>
-                    <option value="topEntertainment">Entertainment</option>
-                    <option value="AirbnbHosts">Airbnb Hosts</option>
-                    <option value="museums">Museums</option>
-                    <option value="tramStops">City Circle Tram Stops</option>
-                </select>
-            </div>
-            <section class="map_box_container">
-                <div id="map">
-                    <div id="left" class="sidebar flex-center left collapsed">
-                        <div class="sidebar-content rounded-rect flex-center">
-                            <div class="map-overlay">
-                                <fieldset id="seeTopField">
-                                    <label>
-                                        See top 10
-                                    </label>
-                                    <label>
-                                        <input type="checkbox" id="showTop10Checkbox" onclick="showTop10(document.getElementById('dropdown').value)">
-                                        <span ></span>
-                                    </label>
-                                </fieldset>
-                                <div id="feature-listing" class="listing"></div>
-                            </div>
-                            <div
-                                    class="sidebar-toggle rounded-rect left"
-                                    onclick="toggleSidebar('left')"
-                            >
-                                &rarr;
-                            </div>
+        <section class="map_box_container">
+            <div id="map">
+                <div id="left" class="sidebar flex-center left collapsed">
+                    <div class="sidebar-content rounded-rect flex-center">
+                        <div class="map-overlay">
+                            <fieldset id="seeTopField">
+                                <label>
+                                    See top 10
+                                </label>
+                                <label>
+                                    <input type="checkbox" id="showTop10Checkbox"
+                                           onclick="showTop10(document.getElementById('dropdown').value)">
+                                    <span></span>
+                                </label>
+                            </fieldset>
+                            <div id="feature-listing" class="listing"></div>
+                        </div>
+                        <div
+                                class="sidebar-toggle rounded-rect left"
+                                onclick="toggleSidebar('left')"
+                        >
+                            &rarr;
                         </div>
                     </div>
                 </div>
-            </section>
-            <div>
-
             </div>
+        </section>
+        <div>
+
         </div>
     </div>
-
-    
+</div>
 
 
 <script>
@@ -101,27 +105,16 @@
 
     map.addControl(new mapboxgl.FullscreenControl());
 
-    // var flagStyle = false;
-    
     function switchLayer() {
-        if (document.getElementById("mapToDarkCheckBox").checked === true){
+        if (document.getElementById("mapToDarkCheckBox").checked === true) {
             map.setStyle('mapbox://styles/mapbox/dark-v10');
-            console.log('dark');
             setLayers();
-            map.triggerRepaint();
-            //flagStyle = true;
-            //dropboxValue = document.getElementById('dropdown').value;
-            //function showTop10(dropboxValue);
         } else {
             map.setStyle('mapbox://styles/ewayeux/ckgqi8vts0j9919llk9awm4t0/draft');
-            console.log('white');
             setLayers();
-            map.triggerRepaint();
-            //dropboxValue = document.getElementById('dropdown').value;
-            //function showTop10(dropboxValue);
         }
     }
-    
+
     var popup = new mapboxgl.Popup({
         closeButton: false
     });
@@ -129,17 +122,20 @@
     var listingEl = document.getElementById('feature-listing');
     var activeLayer = $("#dropdown option:selected").val();
 
-    function addCustomIcons(imgUrl, imageId, sourceId, sourceUrl, sourceLayer,visibility, filter){
-        if(filter.length === 0){
+    function addCustomIcons(imgUrl, imageId, sourceId, sourceUrl, sourceLayer, visibility, filter) {
+        if (filter.length === 0) {
             map.loadImage(
                 imgUrl,
                 function (error, image) {
-                    if (error) throw error;
-                    map.addImage(imageId, image);
-                    map.addSource(sourceId, {
-                        type: 'vector',
-                        url: 'mapbox://' + sourceUrl
-                    });
+                    if (!map.hasImage(imageId)) {
+                        map.addImage(imageId, image);
+                    }
+                    if (map.getSource(sourceId) === undefined) {
+                        map.addSource(sourceId, {
+                            type: 'vector',
+                            url: 'mapbox://' + sourceUrl
+                        });
+                    }
                     map.addLayer({
                         'id': sourceId,
                         'type': 'symbol',
@@ -147,12 +143,12 @@
                         'source-layer': sourceLayer,
                         'layout': {
                             'icon-image': imageId,
-                            'visibility':visibility
+                            'visibility': visibility
                         }
                     });
                 }
             );
-        }else{
+        } else {
             map.loadImage(
                 imgUrl,
                 function (error, image) {
@@ -169,9 +165,9 @@
                         'source-layer': sourceLayer,
                         'layout': {
                             'icon-image': imageId,
-                            'visibility':visibility
+                            'visibility': visibility
                         },
-                        'filter':filter
+                        'filter': filter
                     });
                 }
             );
@@ -179,20 +175,20 @@
 
     }
 
-    function getAttributes(layerName){
-        if(layerName === 'topAttractions'){
-            return ['Feature Name','Sub Theme'];
-        }else if(layerName === 'Restaurants' || layerName === 'topRestaurants'){
-            return ['\"Trading name\"','\"Street address\"'];
-        }else if(layerName === 'CoffeeShops' || layerName === 'topCoffeeShops'){
-            return ['Trading name','Seating type','Street address'];
-        }else if(layerName === 'topEntertainment'){
-            return ['Feature Name','Sub Theme'];
-        }else if(layerName === 'AirbnbHosts' || layerName === 'topAirbnbHosts'){
-            return ['name','host_name','price','room_type'];
-        }else if(layerName === 'museums'){
+    function getAttributes(layerName) {
+        if (layerName === 'topAttractions') {
+            return ['Feature Name', 'Sub Theme'];
+        } else if (layerName === 'Restaurants' || layerName === 'topRestaurants') {
+            return ['Trading name', 'Street address'];
+        } else if (layerName === 'CoffeeShops' || layerName === 'topCoffeeShops') {
+            return ['Trading name', 'Seating type', 'Street address'];
+        } else if (layerName === 'topEntertainment') {
+            return ['Feature Name', 'Sub Theme'];
+        } else if (layerName === 'AirbnbHosts' || layerName === 'topAirbnbHosts') {
+            return ['name', 'host_name', 'price', 'room_type'];
+        } else if (layerName === 'museums') {
             return ['Feature Name'];
-        }else if(layerName === 'tramStops'){
+        } else if (layerName === 'tramStops') {
             return ['name'];
         }
     }
@@ -205,24 +201,24 @@
     const iconRestaurantUrl = 'https://raw.githubusercontent.com/ruofzhang/Assignment3/main/image/restaurant.png';
     const iconTramUrl = 'https://raw.githubusercontent.com/ruofzhang/Assignment3/main/image/tramway.png';
 
-    const topCoffeeShopsFilter = ['match', ['get', 'Number of seats'], [3240,2640,950,1000,660,560,450,380,370,367], true, false];
-    const topAirbnbHostsFilter = ['match', ['get', 'number_of_reviews'], [439,341,325,320,294,291,279,268,250,249], true, false];
-    const topRestaurantsFilter = ['match', ['get', '\"Number of patrons\"'], [0,5000,2800,1500,1100,1059,983,940,900,894,850], true, false];
+    const topCoffeeShopsFilter = ['match', ['get', 'Number of seats'], [3240, 2640, 950, 1000, 660, 560, 450, 380, 370, 367], true, false];
+    const topAirbnbHostsFilter = ['match', ['get', 'number_of_reviews'], [439, 341, 325, 320, 294, 291, 279, 268, 250, 249], true, false];
+    const topRestaurantsFilter = ['match', ['get', 'Number of patrons'], [0, 5000, 2800, 1500, 1100, 1059, 983, 940, 900, 894, 850], true, false];
 
     var checkBox = document.getElementById("showTop10Checkbox");
 
     function showTop10(dropboxValue) {
-        if (checkBox.checked == true){
-            var tempLayerName = 'top'+dropboxValue;
+        if (checkBox.checked == true) {
+            var tempLayerName = 'top' + dropboxValue;
             displayActiveLayer(tempLayerName);
             var features = map.queryRenderedFeatures({layers: [tempLayerName]});
             renderListings(features);
-        }else if(checkBox.checked == false){
+        } else if (checkBox.checked == false) {
             var tempLayerName = dropboxValue;
             displayActiveLayer(tempLayerName);
             var features = map.queryRenderedFeatures({layers: [tempLayerName]});
             renderListings(features);
-        } 
+        }
     }
 
     map.on('load', function () {
@@ -240,10 +236,10 @@
             'type': 'line',
             'source': 'boundary',
             'source-layer': 'Municipal_boundary-8rpr0k',
-            'paint':{
-                'line-color':'#557571',
-                'line-width':2,
-                'line-opacity':0.5
+            'paint': {
+                'line-color': '#557571',
+                'line-width': 2,
+                'line-opacity': 0.5
             }
         });
 
@@ -254,15 +250,15 @@
         addCustomIcons(iconMuseumUrl, 'museum', 'museums', 'ewayeux.9z1rcuh7', 'Landmarks-crnn20', 'none', []);
         addCustomIcons(iconAccommodationUrl, 'accommodation', 'AirbnbHosts', 'ewayeux.9n2hijvw', 'Airbnb-4uh863', 'none', []);
         addCustomIcons(iconAccommodationUrl, 'topaccommodation', 'topAirbnbHosts', 'ewayeux.9n2hijvw', 'Airbnb-4uh863', 'none', topAirbnbHostsFilter);
-        addCustomIcons(iconRestaurantUrl, 'restaurant', 'Restaurants', 'ewayeux.4g7zb1cw', 'Popular_BarsRestaurants_2019-93l337', 'none', []);
-        addCustomIcons(iconRestaurantUrl, 'toprestaurant', 'topRestaurants', 'ewayeux.4g7zb1cw', 'Popular_BarsRestaurants_2019-93l337', 'none', topRestaurantsFilter);
+        addCustomIcons(iconRestaurantUrl, 'restaurant', 'Restaurants', 'ewayeux.4w8x95pl', 'Popular_BarsRestaurants_2019_-c1bjeu', 'none', []);
+        addCustomIcons(iconRestaurantUrl, 'toprestaurant', 'topRestaurants', 'ewayeux.4w8x95pl', 'Popular_BarsRestaurants_2019_-c1bjeu', 'none', topRestaurantsFilter);
         addCustomIcons(iconTramUrl, 'tram', 'tramStops', 'ewayeux.ax2t1b1q', 'City_Circle_tram_stops-axxt4t', 'none', []);
         toggleSidebar('left');
 
 
         map.on('idle', () => {
             popup.remove();
-            var features = map.queryRenderedFeatures({layers: [activeLayer]});
+            let features = map.queryRenderedFeatures({layers: [activeLayer]});
             renderListings(features);
         })
 
@@ -272,16 +268,25 @@
             let feature = e.features[0];
             let attributes = getAttributes(activeLayer);
             let text = '';
-            for (let i = 0; i < attributes.length; i++) {
-                if (i !== attributes.length - 1) {
-                    text += feature.properties[attributes[i]] + '\r\n';
-                } else {
-                    text += feature.properties[attributes[i]];
+            if (activeLayer === 'AirbnbHosts' || activeLayer === 'topAirbnbHosts') {
+                text += '<b class="listItemTitle">' + feature.properties[attributes[0]] + '</b>';
+                text += '<p class="listItemBody">' + 'Host Name: ' + feature.properties[attributes[1]] + '<br>';
+                text += 'Price Per Night: $' + feature.properties[attributes[2]] + '</p>';
+                text += '<i> Type: ' + feature.properties[attributes[3]] + '</i>';
+            } else {
+                for (let i = 0; i < attributes.length; i++) {
+                    if (i === 0) {
+                        text += '<b class="listItemTitle">' + feature.properties[attributes[i]] + '</b><br>';
+                    } else if (i !== attributes.length - 1) {
+                        text += feature.properties[attributes[i]] + '<br>'
+                    } else {
+                        text += '<i>' + feature.properties[attributes[i]] + '</i>';
+                    }
                 }
             }
             popup
                 .setLngLat(feature.geometry.coordinates)
-                .setText(text)
+                .setHTML(text)
                 .addTo(map);
         });
 
@@ -293,12 +298,12 @@
         $('#dropdown').change(function () {
             document.getElementById("showTop10Checkbox").checked = false;
             var selectd = $(this).children('option:selected').val();
-            if(selectd === 'topAttractions' || selectd === 'topEntertainment' || selectd === 'museums'|| selectd === 'tramStops'){
+            if (selectd === 'topAttractions' || selectd === 'topEntertainment' || selectd === 'museums' || selectd === 'tramStops') {
                 document.getElementById("seeTopField").style.display = "none";
-            }else{
+            } else {
                 document.getElementById("seeTopField").style.display = "block";
             }
-            
+
             displayActiveLayer(selectd);
             map.on('mousemove', activeLayer, function (e) {
                 map.getCanvas().style.cursor = 'pointer';
@@ -306,16 +311,25 @@
                 let feature = e.features[0];
                 let attributes = getAttributes(activeLayer);
                 let text = '';
-                for (let i = 0; i < attributes.length; i++) {
-                    if (i !== attributes.length - 1) {
-                        text += feature.properties[attributes[i]] + '\n';
-                    } else {
-                        text += feature.properties[attributes[i]];
+                if (activeLayer === 'AirbnbHosts' || activeLayer === 'topAirbnbHosts') {
+                    text += '<b class="listItemTitle">' + feature.properties[attributes[0]] + '</b>';
+                    text += '<p class="listItemBody">' + 'Host Name: ' + feature.properties[attributes[1]] + '<br>';
+                    text += 'Price Per Night: $' + feature.properties[attributes[2]] + '</p>';
+                    text += '<i> Type: ' + feature.properties[attributes[3]] + '</i>';
+                } else {
+                    for (let i = 0; i < attributes.length; i++) {
+                        if (i === 0) {
+                            text += '<b class="listItemTitle">' + feature.properties[attributes[i]] + '</b><br>';
+                        } else if (i !== attributes.length - 1) {
+                            text += feature.properties[attributes[i]] + '<br>'
+                        } else {
+                            text += '<i>' + feature.properties[attributes[i]] + '</i>';
+                        }
                     }
                 }
                 popup
                     .setLngLat(feature.geometry.coordinates)
-                    .setText(text)
+                    .setHTML(text)
                     .addTo(map);
             });
 
@@ -328,32 +342,121 @@
 
     });
 
-    // map.on('styledata', ()=>{
-    //     addCustomIcons(iconEntertainmentUrl, 'entertainment', 'topEntertainment', 'ewayeux.9svc5d4a', 'Top_Entertainment-18w8l5', 'none', []);
-    //     addCustomIcons(iconLandmarkUrl, 'landmark', 'topAttractions', 'ewayeux.7mz6vzla', 'Landmarks-371aiu', 'visible', []);
-    //     addCustomIcons(iconCafeUrl, 'cafe', 'topCoffeeShops', 'ewayeux.1nqdmrta', 'cafe-b2qmxh', 'none', topCoffeeShopsFilter);
-    //     addCustomIcons(iconMuseumUrl, 'museum', 'museums', 'ewayeux.9z1rcuh7', 'Landmarks-crnn20', 'none', []);
-    //     addCustomIcons(iconAccommodationUrl, 'accommodation', 'topAirbnbHosts', 'ewayeux.9n2hijvw', 'Airbnb-4uh863', 'none', topAirbnbHostsFilter);
-    //     addCustomIcons(iconRestaurantUrl, 'restaurant', 'topRestaurants', 'ewayeux.4g7zb1cw', 'Popular_BarsRestaurants_2019-93l337', 'none', topRestaurantsFilter);
-    //     addCustomIcons(iconTramUrl, 'tram', 'tramStops', 'ewayeux.ax2t1b1q', 'City_Circle_tram_stops-axxt4t', 'none', []);
-    // })
+    function setLayers() {
+        if (activeLayer === 'topEntertainment') {
+            addCustomIcons(iconEntertainmentUrl, 'entertainment', 'topEntertainment', 'ewayeux.9svc5d4a', 'Top_Entertainment-18w8l5', 'visible', []);
+            addCustomIcons(iconLandmarkUrl, 'landmark', 'topAttractions', 'ewayeux.7mz6vzla', 'Landmarks-371aiu', 'none', []);
+            addCustomIcons(iconCafeUrl, 'cafe', 'CoffeeShops', 'ewayeux.1nqdmrta', 'cafe-b2qmxh', 'none', []);
+            addCustomIcons(iconCafeUrl, 'topcafe', 'topCoffeeShops', 'ewayeux.1nqdmrta', 'cafe-b2qmxh', 'none', topCoffeeShopsFilter);
+            addCustomIcons(iconMuseumUrl, 'museum', 'museums', 'ewayeux.9z1rcuh7', 'Landmarks-crnn20', 'none', []);
+            addCustomIcons(iconAccommodationUrl, 'accommodation', 'AirbnbHosts', 'ewayeux.9n2hijvw', 'Airbnb-4uh863', 'none', []);
+            addCustomIcons(iconAccommodationUrl, 'topaccommodation', 'topAirbnbHosts', 'ewayeux.9n2hijvw', 'Airbnb-4uh863', 'none', topAirbnbHostsFilter);
+            addCustomIcons(iconRestaurantUrl, 'restaurant', 'Restaurants', 'ewayeux.4w8x95pl', 'Popular_BarsRestaurants_2019_-c1bjeu', 'none', []);
+            addCustomIcons(iconRestaurantUrl, 'toprestaurant', 'topRestaurants', 'ewayeux.4w8x95pl', 'Popular_BarsRestaurants_2019_-c1bjeu', 'none', topRestaurantsFilter);
+            addCustomIcons(iconTramUrl, 'tram', 'tramStops', 'ewayeux.ax2t1b1q', 'City_Circle_tram_stops-axxt4t', 'none', []);
+        } else if (activeLayer === 'topAttractions') {
+            addCustomIcons(iconEntertainmentUrl, 'entertainment', 'topEntertainment', 'ewayeux.9svc5d4a', 'Top_Entertainment-18w8l5', 'none', []);
+            addCustomIcons(iconLandmarkUrl, 'landmark', 'topAttractions', 'ewayeux.7mz6vzla', 'Landmarks-371aiu', 'visible', []);
+            addCustomIcons(iconCafeUrl, 'cafe', 'CoffeeShops', 'ewayeux.1nqdmrta', 'cafe-b2qmxh', 'none', []);
+            addCustomIcons(iconCafeUrl, 'topcafe', 'topCoffeeShops', 'ewayeux.1nqdmrta', 'cafe-b2qmxh', 'none', topCoffeeShopsFilter);
+            addCustomIcons(iconMuseumUrl, 'museum', 'museums', 'ewayeux.9z1rcuh7', 'Landmarks-crnn20', 'none', []);
+            addCustomIcons(iconAccommodationUrl, 'accommodation', 'AirbnbHosts', 'ewayeux.9n2hijvw', 'Airbnb-4uh863', 'none', []);
+            addCustomIcons(iconAccommodationUrl, 'topaccommodation', 'topAirbnbHosts', 'ewayeux.9n2hijvw', 'Airbnb-4uh863', 'none', topAirbnbHostsFilter);
+            addCustomIcons(iconRestaurantUrl, 'restaurant', 'Restaurants', 'ewayeux.4w8x95pl', 'Popular_BarsRestaurants_2019_-c1bjeu', 'none', []);
+            addCustomIcons(iconRestaurantUrl, 'toprestaurant', 'topRestaurants', 'ewayeux.4w8x95pl', 'Popular_BarsRestaurants_2019_-c1bjeu', 'none', topRestaurantsFilter);
+            addCustomIcons(iconTramUrl, 'tram', 'tramStops', 'ewayeux.ax2t1b1q', 'City_Circle_tram_stops-axxt4t', 'none', []);
+        } else if (activeLayer === 'CoffeeShops') {
+            addCustomIcons(iconEntertainmentUrl, 'entertainment', 'topEntertainment', 'ewayeux.9svc5d4a', 'Top_Entertainment-18w8l5', 'none', []);
+            addCustomIcons(iconLandmarkUrl, 'landmark', 'topAttractions', 'ewayeux.7mz6vzla', 'Landmarks-371aiu', 'none', []);
+            addCustomIcons(iconCafeUrl, 'cafe', 'CoffeeShops', 'ewayeux.1nqdmrta', 'cafe-b2qmxh', 'visible', []);
+            addCustomIcons(iconCafeUrl, 'topcafe', 'topCoffeeShops', 'ewayeux.1nqdmrta', 'cafe-b2qmxh', 'none', topCoffeeShopsFilter);
+            addCustomIcons(iconMuseumUrl, 'museum', 'museums', 'ewayeux.9z1rcuh7', 'Landmarks-crnn20', 'none', []);
+            addCustomIcons(iconAccommodationUrl, 'accommodation', 'AirbnbHosts', 'ewayeux.9n2hijvw', 'Airbnb-4uh863', 'none', []);
+            addCustomIcons(iconAccommodationUrl, 'topaccommodation', 'topAirbnbHosts', 'ewayeux.9n2hijvw', 'Airbnb-4uh863', 'none', topAirbnbHostsFilter);
+            addCustomIcons(iconRestaurantUrl, 'restaurant', 'Restaurants', 'ewayeux.4w8x95pl', 'Popular_BarsRestaurants_2019_-c1bjeu', 'none', []);
+            addCustomIcons(iconRestaurantUrl, 'toprestaurant', 'topRestaurants', 'ewayeux.4w8x95pl', 'Popular_BarsRestaurants_2019_-c1bjeu', 'none', topRestaurantsFilter);
+            addCustomIcons(iconTramUrl, 'tram', 'tramStops', 'ewayeux.ax2t1b1q', 'City_Circle_tram_stops-axxt4t', 'none', []);
+        } else if (activeLayer === 'topCoffeeShops') {
+            addCustomIcons(iconEntertainmentUrl, 'entertainment', 'topEntertainment', 'ewayeux.9svc5d4a', 'Top_Entertainment-18w8l5', 'none', []);
+            addCustomIcons(iconLandmarkUrl, 'landmark', 'topAttractions', 'ewayeux.7mz6vzla', 'Landmarks-371aiu', 'none', []);
+            addCustomIcons(iconCafeUrl, 'cafe', 'CoffeeShops', 'ewayeux.1nqdmrta', 'cafe-b2qmxh', 'none', []);
+            addCustomIcons(iconCafeUrl, 'topcafe', 'topCoffeeShops', 'ewayeux.1nqdmrta', 'cafe-b2qmxh', 'visible', topCoffeeShopsFilter);
+            addCustomIcons(iconMuseumUrl, 'museum', 'museums', 'ewayeux.9z1rcuh7', 'Landmarks-crnn20', 'none', []);
+            addCustomIcons(iconAccommodationUrl, 'accommodation', 'AirbnbHosts', 'ewayeux.9n2hijvw', 'Airbnb-4uh863', 'none', []);
+            addCustomIcons(iconAccommodationUrl, 'topaccommodation', 'topAirbnbHosts', 'ewayeux.9n2hijvw', 'Airbnb-4uh863', 'none', topAirbnbHostsFilter);
+            addCustomIcons(iconRestaurantUrl, 'restaurant', 'Restaurants', 'ewayeux.4w8x95pl', 'Popular_BarsRestaurants_2019_-c1bjeu', 'none', []);
+            addCustomIcons(iconRestaurantUrl, 'toprestaurant', 'topRestaurants', 'ewayeux.4w8x95pl', 'Popular_BarsRestaurants_2019_-c1bjeu', 'none', topRestaurantsFilter);
+            addCustomIcons(iconTramUrl, 'tram', 'tramStops', 'ewayeux.ax2t1b1q', 'City_Circle_tram_stops-axxt4t', 'none', []);
+        } else if (activeLayer === 'museums') {
+            addCustomIcons(iconEntertainmentUrl, 'entertainment', 'topEntertainment', 'ewayeux.9svc5d4a', 'Top_Entertainment-18w8l5', 'none', []);
+            addCustomIcons(iconLandmarkUrl, 'landmark', 'topAttractions', 'ewayeux.7mz6vzla', 'Landmarks-371aiu', 'none', []);
+            addCustomIcons(iconCafeUrl, 'cafe', 'CoffeeShops', 'ewayeux.1nqdmrta', 'cafe-b2qmxh', 'none', []);
+            addCustomIcons(iconCafeUrl, 'topcafe', 'topCoffeeShops', 'ewayeux.1nqdmrta', 'cafe-b2qmxh', 'none', topCoffeeShopsFilter);
+            addCustomIcons(iconMuseumUrl, 'museum', 'museums', 'ewayeux.9z1rcuh7', 'Landmarks-crnn20', 'visible', []);
+            addCustomIcons(iconAccommodationUrl, 'accommodation', 'AirbnbHosts', 'ewayeux.9n2hijvw', 'Airbnb-4uh863', 'none', []);
+            addCustomIcons(iconAccommodationUrl, 'topaccommodation', 'topAirbnbHosts', 'ewayeux.9n2hijvw', 'Airbnb-4uh863', 'none', topAirbnbHostsFilter);
+            addCustomIcons(iconRestaurantUrl, 'restaurant', 'Restaurants', 'ewayeux.4w8x95pl', 'Popular_BarsRestaurants_2019_-c1bjeu', 'none', []);
+            addCustomIcons(iconRestaurantUrl, 'toprestaurant', 'topRestaurants', 'ewayeux.4w8x95pl', 'Popular_BarsRestaurants_2019_-c1bjeu', 'none', topRestaurantsFilter);
+            addCustomIcons(iconTramUrl, 'tram', 'tramStops', 'ewayeux.ax2t1b1q', 'City_Circle_tram_stops-axxt4t', 'none', []);
+        } else if (activeLayer === 'AirbnbHosts') {
+            addCustomIcons(iconEntertainmentUrl, 'entertainment', 'topEntertainment', 'ewayeux.9svc5d4a', 'Top_Entertainment-18w8l5', 'none', []);
+            addCustomIcons(iconLandmarkUrl, 'landmark', 'topAttractions', 'ewayeux.7mz6vzla', 'Landmarks-371aiu', 'none', []);
+            addCustomIcons(iconCafeUrl, 'cafe', 'CoffeeShops', 'ewayeux.1nqdmrta', 'cafe-b2qmxh', 'none', []);
+            addCustomIcons(iconCafeUrl, 'topcafe', 'topCoffeeShops', 'ewayeux.1nqdmrta', 'cafe-b2qmxh', 'none', topCoffeeShopsFilter);
+            addCustomIcons(iconMuseumUrl, 'museum', 'museums', 'ewayeux.9z1rcuh7', 'Landmarks-crnn20', 'none', []);
+            addCustomIcons(iconAccommodationUrl, 'accommodation', 'AirbnbHosts', 'ewayeux.9n2hijvw', 'Airbnb-4uh863', 'visible', []);
+            addCustomIcons(iconAccommodationUrl, 'topaccommodation', 'topAirbnbHosts', 'ewayeux.9n2hijvw', 'Airbnb-4uh863', 'none', topAirbnbHostsFilter);
+            addCustomIcons(iconRestaurantUrl, 'restaurant', 'Restaurants', 'ewayeux.4w8x95pl', 'Popular_BarsRestaurants_2019_-c1bjeu', 'none', []);
+            addCustomIcons(iconRestaurantUrl, 'toprestaurant', 'topRestaurants', 'ewayeux.4w8x95pl', 'Popular_BarsRestaurants_2019_-c1bjeu', 'none', topRestaurantsFilter);
+            addCustomIcons(iconTramUrl, 'tram', 'tramStops', 'ewayeux.ax2t1b1q', 'City_Circle_tram_stops-axxt4t', 'none', []);
+        } else if (activeLayer === 'topAirbnbHosts') {
+            addCustomIcons(iconEntertainmentUrl, 'entertainment', 'topEntertainment', 'ewayeux.9svc5d4a', 'Top_Entertainment-18w8l5', 'none', []);
+            addCustomIcons(iconLandmarkUrl, 'landmark', 'topAttractions', 'ewayeux.7mz6vzla', 'Landmarks-371aiu', 'none', []);
+            addCustomIcons(iconCafeUrl, 'cafe', 'CoffeeShops', 'ewayeux.1nqdmrta', 'cafe-b2qmxh', 'none', []);
+            addCustomIcons(iconCafeUrl, 'topcafe', 'topCoffeeShops', 'ewayeux.1nqdmrta', 'cafe-b2qmxh', 'none', topCoffeeShopsFilter);
+            addCustomIcons(iconMuseumUrl, 'museum', 'museums', 'ewayeux.9z1rcuh7', 'Landmarks-crnn20', 'none', []);
+            addCustomIcons(iconAccommodationUrl, 'accommodation', 'AirbnbHosts', 'ewayeux.9n2hijvw', 'Airbnb-4uh863', 'none', []);
+            addCustomIcons(iconAccommodationUrl, 'topaccommodation', 'topAirbnbHosts', 'ewayeux.9n2hijvw', 'Airbnb-4uh863', 'visible', topAirbnbHostsFilter);
+            addCustomIcons(iconRestaurantUrl, 'restaurant', 'Restaurants', 'ewayeux.4w8x95pl', 'Popular_BarsRestaurants_2019_-c1bjeu', 'none', []);
+            addCustomIcons(iconRestaurantUrl, 'toprestaurant', 'topRestaurants', 'ewayeux.4w8x95pl', 'Popular_BarsRestaurants_2019_-c1bjeu', 'none', topRestaurantsFilter);
+            addCustomIcons(iconTramUrl, 'tram', 'tramStops', 'ewayeux.ax2t1b1q', 'City_Circle_tram_stops-axxt4t', 'none', []);
+        } else if (activeLayer === 'Restaurants') {
+            addCustomIcons(iconEntertainmentUrl, 'entertainment', 'topEntertainment', 'ewayeux.9svc5d4a', 'Top_Entertainment-18w8l5', 'none', []);
+            addCustomIcons(iconLandmarkUrl, 'landmark', 'topAttractions', 'ewayeux.7mz6vzla', 'Landmarks-371aiu', 'none', []);
+            addCustomIcons(iconCafeUrl, 'cafe', 'CoffeeShops', 'ewayeux.1nqdmrta', 'cafe-b2qmxh', 'none', []);
+            addCustomIcons(iconCafeUrl, 'topcafe', 'topCoffeeShops', 'ewayeux.1nqdmrta', 'cafe-b2qmxh', 'none', topCoffeeShopsFilter);
+            addCustomIcons(iconMuseumUrl, 'museum', 'museums', 'ewayeux.9z1rcuh7', 'Landmarks-crnn20', 'none', []);
+            addCustomIcons(iconAccommodationUrl, 'accommodation', 'AirbnbHosts', 'ewayeux.9n2hijvw', 'Airbnb-4uh863', 'none', []);
+            addCustomIcons(iconAccommodationUrl, 'topaccommodation', 'topAirbnbHosts', 'ewayeux.9n2hijvw', 'Airbnb-4uh863', 'none', topAirbnbHostsFilter);
+            addCustomIcons(iconRestaurantUrl, 'restaurant', 'Restaurants', 'ewayeux.4w8x95pl', 'Popular_BarsRestaurants_2019_-c1bjeu', 'visible', []);
+            addCustomIcons(iconRestaurantUrl, 'toprestaurant', 'topRestaurants', 'ewayeux.4w8x95pl', 'Popular_BarsRestaurants_2019_-c1bjeu', 'none', topRestaurantsFilter);
+            addCustomIcons(iconTramUrl, 'tram', 'tramStops', 'ewayeux.ax2t1b1q', 'City_Circle_tram_stops-axxt4t', 'none', []);
+        } else if (activeLayer === 'topRestaurants') {
+            addCustomIcons(iconEntertainmentUrl, 'entertainment', 'topEntertainment', 'ewayeux.9svc5d4a', 'Top_Entertainment-18w8l5', 'none', []);
+            addCustomIcons(iconLandmarkUrl, 'landmark', 'topAttractions', 'ewayeux.7mz6vzla', 'Landmarks-371aiu', 'none', []);
+            addCustomIcons(iconCafeUrl, 'cafe', 'CoffeeShops', 'ewayeux.1nqdmrta', 'cafe-b2qmxh', 'none', []);
+            addCustomIcons(iconCafeUrl, 'topcafe', 'topCoffeeShops', 'ewayeux.1nqdmrta', 'cafe-b2qmxh', 'none', topCoffeeShopsFilter);
+            addCustomIcons(iconMuseumUrl, 'museum', 'museums', 'ewayeux.9z1rcuh7', 'Landmarks-crnn20', 'none', []);
+            addCustomIcons(iconAccommodationUrl, 'accommodation', 'AirbnbHosts', 'ewayeux.9n2hijvw', 'Airbnb-4uh863', 'none', []);
+            addCustomIcons(iconAccommodationUrl, 'topaccommodation', 'topAirbnbHosts', 'ewayeux.9n2hijvw', 'Airbnb-4uh863', 'none', topAirbnbHostsFilter);
+            addCustomIcons(iconRestaurantUrl, 'restaurant', 'Restaurants', 'ewayeux.4w8x95pl', 'Popular_BarsRestaurants_2019_-c1bjeu', 'none', []);
+            addCustomIcons(iconRestaurantUrl, 'toprestaurant', 'topRestaurants', 'ewayeux.4w8x95pl', 'Popular_BarsRestaurants_2019_-c1bjeu', 'visible', topRestaurantsFilter);
+            addCustomIcons(iconTramUrl, 'tram', 'tramStops', 'ewayeux.ax2t1b1q', 'City_Circle_tram_stops-axxt4t', 'none', []);
+        } else if (activeLayer === 'tramStops') {
+            addCustomIcons(iconEntertainmentUrl, 'entertainment', 'topEntertainment', 'ewayeux.9svc5d4a', 'Top_Entertainment-18w8l5', 'none', []);
+            addCustomIcons(iconLandmarkUrl, 'landmark', 'topAttractions', 'ewayeux.7mz6vzla', 'Landmarks-371aiu', 'none', []);
+            addCustomIcons(iconCafeUrl, 'cafe', 'CoffeeShops', 'ewayeux.1nqdmrta', 'cafe-b2qmxh', 'none', []);
+            addCustomIcons(iconCafeUrl, 'topcafe', 'topCoffeeShops', 'ewayeux.1nqdmrta', 'cafe-b2qmxh', 'none', topCoffeeShopsFilter);
+            addCustomIcons(iconMuseumUrl, 'museum', 'museums', 'ewayeux.9z1rcuh7', 'Landmarks-crnn20', 'none', []);
+            addCustomIcons(iconAccommodationUrl, 'accommodation', 'AirbnbHosts', 'ewayeux.9n2hijvw', 'Airbnb-4uh863', 'none', []);
+            addCustomIcons(iconAccommodationUrl, 'topaccommodation', 'topAirbnbHosts', 'ewayeux.9n2hijvw', 'Airbnb-4uh863', 'none', topAirbnbHostsFilter);
+            addCustomIcons(iconRestaurantUrl, 'restaurant', 'Restaurants', 'ewayeux.4w8x95pl', 'Popular_BarsRestaurants_2019_-c1bjeu', 'none', []);
+            addCustomIcons(iconRestaurantUrl, 'toprestaurant', 'topRestaurants', 'ewayeux.4w8x95pl', 'Popular_BarsRestaurants_2019_-c1bjeu', 'none', topRestaurantsFilter);
+            addCustomIcons(iconTramUrl, 'tram', 'tramStops', 'ewayeux.ax2t1b1q', 'City_Circle_tram_stops-axxt4t', 'visible', []);
+        }
 
-    function setLayers(){
-        addCustomIcons(iconEntertainmentUrl, 'entertainment', 'topEntertainment', 'ewayeux.9svc5d4a', 'Top_Entertainment-18w8l5', 'none', []);
-        addCustomIcons(iconLandmarkUrl, 'landmark', 'topAttractions', 'ewayeux.7mz6vzla', 'Landmarks-371aiu', 'visible', []);
-        addCustomIcons(iconCafeUrl, 'cafe', 'CoffeeShops', 'ewayeux.1nqdmrta', 'cafe-b2qmxh', 'none', []);
-        addCustomIcons(iconCafeUrl, 'topcafe', 'topCoffeeShops', 'ewayeux.1nqdmrta', 'cafe-b2qmxh', 'none', topCoffeeShopsFilter);
-        addCustomIcons(iconMuseumUrl, 'museum', 'museums', 'ewayeux.9z1rcuh7', 'Landmarks-crnn20', 'none', []);
-        addCustomIcons(iconAccommodationUrl, 'accommodation', 'AirbnbHosts', 'ewayeux.9n2hijvw', 'Airbnb-4uh863', 'none', []);
-        addCustomIcons(iconAccommodationUrl, 'topaccommodation', 'topAirbnbHosts', 'ewayeux.9n2hijvw', 'Airbnb-4uh863', 'none', topAirbnbHostsFilter);
-        addCustomIcons(iconRestaurantUrl, 'restaurant', 'Restaurants', 'ewayeux.4g7zb1cw', 'Popular_BarsRestaurants_2019-93l337', 'none', []);
-        addCustomIcons(iconRestaurantUrl, 'toprestaurant', 'topRestaurants', 'ewayeux.4g7zb1cw', 'Popular_BarsRestaurants_2019-93l337', 'none', topRestaurantsFilter);
-        addCustomIcons(iconTramUrl, 'tram', 'tramStops', 'ewayeux.ax2t1b1q', 'City_Circle_tram_stops-axxt4t', 'none', []);
-        console.log("change style");
     }
 
-    
-    
 
     function renderListings(features) {
         // Clear any existing listings
@@ -364,27 +467,46 @@
                 let item = document.createElement('a');
                 let attributes = getAttributes(activeLayer);
                 let text = '';
-                for(let i = 0; i < attributes.length; i++){
-                    if(i !== attributes.length -1){
-                        text += prop[attributes[i]] + '<br>';
-                    }else{
-                        text += prop[attributes[i]];
+                if (activeLayer === 'AirbnbHosts' || activeLayer === 'topAirbnbHosts') {
+                    text += '<b class="listItemTitle">' + prop[attributes[0]] + '</b>';
+                    text += '<p class="listItemBody">' + 'Host Name: ' + prop[attributes[1]] + '<br>';
+                    text += 'Price Per Night: $' + prop[attributes[2]] + '</p>';
+                    text += '<i> Type: ' + prop[attributes[3]] + '</i>';
+                } else {
+                    for (let i = 0; i < attributes.length; i++) {
+                        if (i === 0) {
+                            text += '<b class="listItemTitle">' + prop[attributes[i]] + '</b><br>';
+                        } else if (i !== attributes.length - 1) {
+                            text += prop[attributes[i]] + '<br>'
+                        } else {
+                            text += '<i>' + prop[attributes[i]] + '</i>';
+                        }
                     }
                 }
+
                 item.innerHTML = text;
                 item.addEventListener('mouseover', function () {
                     let attributes = getAttributes(activeLayer);
                     let text = '';
-                    for(let i = 0; i < attributes.length; i++){
-                        if(i !== attributes.length -1){
-                            text += feature.properties[attributes[i]] + '\n';
-                        }else{
-                            text += feature.properties[attributes[i]];
+                    if (activeLayer === 'AirbnbHosts' || activeLayer === 'topAirbnbHosts') {
+                        text += '<b class="listItemTitle">' + prop[attributes[0]] + '</b>';
+                        text += '<p class="listItemBody">' + 'Host Name: ' + prop[attributes[1]] + '<br>';
+                        text += 'Price Per Night: $' + prop[attributes[2]] + '</p>';
+                        text += '<i> Type: ' + prop[attributes[3]] + '</i>';
+                    } else {
+                        for (let i = 0; i < attributes.length; i++) {
+                            if (i === 0) {
+                                text += '<b class="listItemTitle">' + prop[attributes[i]] + '</b><br>';
+                            } else if (i !== attributes.length - 1) {
+                                text += prop[attributes[i]] + '<br>'
+                            } else {
+                                text += '<i>' + prop[attributes[i]] + '</i>';
+                            }
                         }
                     }
                     popup
                         .setLngLat(feature.geometry.coordinates)
-                        .setText(text)
+                        .setHTML(text)
                         .addTo(map);
                 });
                 item.addEventListener('mouseleave', function () {
@@ -396,7 +518,7 @@
     }
 
 
-    function displayActiveLayer(layerName){
+    function displayActiveLayer(layerName) {
         let visibility = map.getLayoutProperty(layerName, 'visibility');
         if (visibility === 'none') {
             map.setLayoutProperty(layerName, 'visibility', 'visible');
@@ -404,7 +526,6 @@
             activeLayer = layerName;
         }
     }
-
 
 
     function toggleSidebar(id) {
@@ -437,7 +558,6 @@
         // Update the class list on the element
         elem.className = classes.join(' ');
     }
-
 
 
 </script>
