@@ -29,21 +29,16 @@
     </div>
     <div class="text_map">
         <div class="text" style="width: 95%">
-            <h2>If you are a gourmet enthusiast...</h2>
-            <p style="font-size: 15px; width: 93%;">
-                Taste your way through Melbourne's exploding culinary epicentre. Embark on a 3.5-hour walking tour
-                and discover hot spots and hidden gems around the city.<br/>
-                Melbourne's awash with high quality bars, cafes and restaurants, so you're always guaranteed to get a
-                satisfying meal. From quick bites to magical dining experiences, Melbourne's got your bases covered.
-                It's simply the best place to be in Australia for a top table experience.
+            <div id="mainTextContainer">
+                <div id="btnLine"><h2 id="subTitle" style="display: inline-block">If you are looking for best spots in
+                    Melbourne...</h2>
+                    <button id="readMoreBtn" style="display: inline-block">Read more</button>
+                </div>
+                <p style="font-size: 15px; width: 93%; text-align:justify"><span id="more">
+                    Melbourne is packed with tourist attractions, from laneways and street art to lush parks and grand galleries and museums.
+            </span></p>
+            </div>
 
-                From bars and restaurants bestowed with awards from the Good Food Guide, Australian Gourmet Traveller
-                and TimeOut, to tucked-away places treasured by locals, there's a selection of old favourites and new
-                kids on the block. Discover Melbourne's best restaurants.
-            </p>
-            <p class="whetherTop" style="font-size: 14px;  padding-bottom: 20px"><b>
-                Browsing the restaurants and cafes located in Melbourne:
-            </b></p>
             <select id="dropdown" name="dropdown" style="font-size: 14px; width: 93%">
                 <!-- <option value="TopRest">Top Restaurants</option>
                 <option value="TopCafe">Top Cafes</option>
@@ -93,6 +88,19 @@
 
 
 <script>
+
+
+    $(document).on("click", "#readMoreBtn", () => {
+        var moreText = document.getElementById("more");
+        var btnText = document.getElementById("readMoreBtn");
+        if (moreText.style.display !== "inline") {
+            btnText.innerHTML = "Read less";
+            moreText.style.display = "inline";
+        } else {
+            btnText.innerHTML = "Read more";
+            moreText.style.display = "none";
+        }
+    });
 
     mapboxgl.accessToken = 'pk.eyJ1IjoiZXdheWV1eCIsImEiOiJja2docjF0dHkxZHpmMnhwZHZ2bnJ6Y3dtIn0.IYFG-sIWblWzAynZ6oqQAQ';
 
@@ -272,7 +280,7 @@
                 text += '<b class="listItemTitle">' + feature.properties[attributes[0]] + '</b>';
                 text += '<p class="listItemBody">' + 'Host Name: ' + feature.properties[attributes[1]] + '<br>';
                 text += 'Price Per Night: $' + feature.properties[attributes[2]] + '</p>';
-                text += '<i> Type: ' + feature.properties[attributes[3]] + '</i>';
+                text += '<i class="listItemLastLine"> Type: ' + feature.properties[attributes[3]] + '</i>';
             } else {
                 for (let i = 0; i < attributes.length; i++) {
                     if (i === 0) {
@@ -280,7 +288,7 @@
                     } else if (i !== attributes.length - 1) {
                         text += feature.properties[attributes[i]] + '<br>'
                     } else {
-                        text += '<i>' + feature.properties[attributes[i]] + '</i>';
+                        text += '<i class="listItemLastLine">' + feature.properties[attributes[i]] + '</i>';
                     }
                 }
             }
@@ -296,6 +304,33 @@
         });
 
         $('#dropdown').change(function () {
+
+            let subTitle = document.getElementById("subTitle");
+            if ($("#dropdown option:selected").val() === 'topAttractions') {
+                subTitle.textContent = 'If you are looking for best spots in Melbourne...';
+                $("#more").text('Melbourne is packed with tourist attractions, from laneways and street art to lush parks and grand galleries and museums.');
+            } else if ($("#dropdown option:selected").val() === 'Restaurants') {
+                subTitle.textContent = 'If you are a gourmet enthusiast...';
+                $("#more").text('Melbourne\'s awash with high quality bars, cafes and restaurants, so you\'re always guaranteed to get a satisfying meal. From quick bites to magical dining experiences, Melbourne\'s got your bases covered. It\'s simply the best place to be in Australia for a top table experience. From bars and restaurants bestowed with awards from the Good Food Guide, Australian Gourmet Traveller and TimeOut, to tucked-away places treasured by locals, there\'s a selection of old favourites and new kids on the block. Discover Melbourne\'s best restaurants.');
+            } else if ($("#dropdown option:selected").val() === 'topEntertainment') {
+                subTitle.textContent = 'If you are searching for great clubs and bars...';
+                $("#more").text('In Melbourne, you\'ll find a galaxy of great clubs and bars – ideal places for a convivial drink, social catch ups and DJ sessions, late into the night.');
+            } else if ($("#dropdown option:selected").val() === 'CoffeeShops') {
+                subTitle.textContent = 'If you are a coffee lover...';
+                $("#more").text('Melbourne and coffee go together like Summer and the beach. It’s a match made in heaven. With what seems to be a coffee shop on every corner and lane way you’re\n' +
+                    '\n' +
+                    'never to far of a walk from some of the best coffee the city has to offer.');
+            } else if ($("#dropdown option:selected").val() === 'AirbnbHosts') {
+                subTitle.textContent = 'If you are finding a great deal for accommodation...';
+                $("#more").text('There are a plenty of accommodations of different prices, ratings and standards located in Melbourne, serving with tourists with wonderful living experience and helping to make your trips more colorful and comfortable.');
+            } else if ($("#dropdown option:selected").val() === 'museums') {
+                subTitle.textContent = 'If you like appreciating art...';
+                $("#more").text('Delve deep into the history of places near and far at Melbourne\'s varied museums\, dedicated to all manner of the city\'s quirky local stories.');
+            } else if ($("#dropdown option:selected").val() === 'tramStops') {
+                subTitle.textContent = 'If you want to explore city via public transport...';
+                $("#more").text('The City Circle Tram service provides a free and convenient way to get around central Melbourne. Tourists can use the City Circle Tram to travel to major attractions, shops and city events.');
+            }
+
             document.getElementById("showTop10Checkbox").checked = false;
             var selectd = $(this).children('option:selected').val();
             if (selectd === 'topAttractions' || selectd === 'topEntertainment' || selectd === 'museums' || selectd === 'tramStops') {
@@ -315,7 +350,7 @@
                     text += '<b class="listItemTitle">' + feature.properties[attributes[0]] + '</b>';
                     text += '<p class="listItemBody">' + 'Host Name: ' + feature.properties[attributes[1]] + '<br>';
                     text += 'Price Per Night: $' + feature.properties[attributes[2]] + '</p>';
-                    text += '<i> Type: ' + feature.properties[attributes[3]] + '</i>';
+                    text += '<i class="listItemLastLine"> Type: ' + feature.properties[attributes[3]] + '</i>';
                 } else {
                     for (let i = 0; i < attributes.length; i++) {
                         if (i === 0) {
@@ -323,7 +358,7 @@
                         } else if (i !== attributes.length - 1) {
                             text += feature.properties[attributes[i]] + '<br>'
                         } else {
-                            text += '<i>' + feature.properties[attributes[i]] + '</i>';
+                            text += '<i class="listItemLastLine">' + feature.properties[attributes[i]] + '</i>';
                         }
                     }
                 }
@@ -339,8 +374,8 @@
             });
         })
 
-
     });
+
 
     function setLayers() {
         if (activeLayer === 'topEntertainment') {
@@ -471,7 +506,7 @@
                     text += '<b class="listItemTitle">' + prop[attributes[0]] + '</b>';
                     text += '<p class="listItemBody">' + 'Host Name: ' + prop[attributes[1]] + '<br>';
                     text += 'Price Per Night: $' + prop[attributes[2]] + '</p>';
-                    text += '<i> Type: ' + prop[attributes[3]] + '</i>';
+                    text += '<i  class="listItemLastLine"> Type: ' + prop[attributes[3]] + '</i>';
                 } else {
                     for (let i = 0; i < attributes.length; i++) {
                         if (i === 0) {
@@ -479,7 +514,7 @@
                         } else if (i !== attributes.length - 1) {
                             text += prop[attributes[i]] + '<br>'
                         } else {
-                            text += '<i>' + prop[attributes[i]] + '</i>';
+                            text += '<i  class="listItemLastLine">' + prop[attributes[i]] + '</i>';
                         }
                     }
                 }
@@ -492,7 +527,7 @@
                         text += '<b class="listItemTitle">' + prop[attributes[0]] + '</b>';
                         text += '<p class="listItemBody">' + 'Host Name: ' + prop[attributes[1]] + '<br>';
                         text += 'Price Per Night: $' + prop[attributes[2]] + '</p>';
-                        text += '<i> Type: ' + prop[attributes[3]] + '</i>';
+                        text += '<i  class="listItemLastLine"> Type: ' + prop[attributes[3]] + '</i>';
                     } else {
                         for (let i = 0; i < attributes.length; i++) {
                             if (i === 0) {
@@ -500,7 +535,7 @@
                             } else if (i !== attributes.length - 1) {
                                 text += prop[attributes[i]] + '<br>'
                             } else {
-                                text += '<i>' + prop[attributes[i]] + '</i>';
+                                text += '<i  class="listItemLastLine">' + prop[attributes[i]] + '</i>';
                             }
                         }
                     }
