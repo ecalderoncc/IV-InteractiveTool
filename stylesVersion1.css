@@ -8,37 +8,9 @@
     url("./Playfair_Display_SC/PlayfairDisplaySC-BlackItalic.ttf");
 }
 @font-face {
-    font-family: 'Mulish';
-    src: url("./Mulish/static/Mulish-Light.ttf");
-}
-@font-face {
-    font-family: 'Arvo';
-    src: url('./Arvo/Arvo-Regular.ttf'),
-    url('./Arvo/Arvo-Bold.ttf'),
-    url('./Arvo/Arvo-BoldItalic.ttf'),
-    url('./Arvo/Arvo-Italic.ttf');
-}
-@font-face {
     font-family: 'AlegreyaSansSC';
     src: url("./Alegreya_Sans_SC/AlegreyaSansSC-Light.ttf"),
     url("./Alegreya_Sans_SC/AlegreyaSansSC-Black.ttf");
-}
-@font-face {
-    font-family: 'Molengo';
-    src: url("./Molengo/Molengo-Regular.ttf");
-}
-
-@font-face {
-    font-family: 'Prata';
-    src: url("./Prata/Prata-Regular.ttf");
-}
-@font-face {
-    font-family: 'Changa';
-    src: url("./Changa/static/Changa-Regular.ttf");
-}
-@font-face {
-    font-family: 'Halant';
-    src: url("./Halant/Halant-Regular.ttf");
 }
 @font-face {
     font-family: 'Limelight';
@@ -130,9 +102,8 @@ h1{
     position: relative;
     padding: 70px;
     padding-top: 15px;
-    width: 93%;
+    width: 100%;
     height: 900px;
-
 }
 
 #map {
@@ -140,7 +111,7 @@ h1{
     top: 0;
     bottom: 0;
     height: 100% !important;
-    width: 95% !important;
+    width: 100% !important;
 }
 
 .map-overlay {
@@ -149,7 +120,7 @@ h1{
     top: 0;
     bottom: 0;
     left: 0;
-    font: 13px/20px 'Lato', sans-serif;
+    font: 13px/20px 'PlayfairDisplaySC', sans-serif;
     background-color: #fff;
     max-height: 100%;
     overflow: hidden;
@@ -258,19 +229,17 @@ h1{
 /********Design*********/
 select{
     padding-left: 10px;
-    font-size: 80%;
-    font-family: 'Lato', sans-serif;
-    letter-spacing: 0.09em;
     border: none;
     outline: none;
-    width: 95%;
-    height: 40px;
+    width: 100%;
+    height: 30px;
     line-height: 40px;
     appearance: none;
     -webkit-appearance: none;
     -moz-appearance: none;
     background-color: #fbf7f0;
 }
+
 
 /* The switch - the box around the slider */
 .switch {
@@ -334,3 +303,4 @@ input:checked + .slider:before {
 .slider.round:before {
     border-radius: 50%;
 }
+
