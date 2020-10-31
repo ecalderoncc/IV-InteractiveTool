@@ -2,19 +2,8 @@
 @font-face {
     font-family: 'PlayfairDisplaySC';
     src: url("./Playfair_Display_SC/PlayfairDisplaySC-Bold.ttf"),
-    url("./Playfair_Display_SC/PlayfairDisplaySC-BoldItalic.ttf"),
     url("./Playfair_Display_SC/PlayfairDisplaySC-Regular.ttf"),
-    url("./Playfair_Display_SC/PlayfairDisplaySC-Black.ttf"),
-    url("./Playfair_Display_SC/PlayfairDisplaySC-BlackItalic.ttf");
-}
-@font-face {
-    font-family: 'AlegreyaSansSC';
-    src: url("./Alegreya_Sans_SC/AlegreyaSansSC-Light.ttf"),
-    url("./Alegreya_Sans_SC/AlegreyaSansSC-Black.ttf");
-}
-@font-face {
-    font-family: 'Limelight';
-    src: url("./Limelight/Limelight-Regular.ttf");
+    url("./Playfair_Display_SC/PlayfairDisplaySC-Black.ttf");
 }
 @font-face {
     font-family: 'GildaDisplay';
@@ -68,6 +57,13 @@ h1{
 #textIntro{
     font-family: PlayfairDisplaySC, serif;
 }
+
+.subTitle{
+    font-size: 22px;
+    font-family: PlayfairDisplaySC, serif;
+    background-color: #d8d3cd;
+}
+
 .texts{
     font-family: GildaDisplay, serif;
     margin-bottom: 30px;
@@ -303,4 +299,3 @@ input:checked + .slider:before {
 .slider.round:before {
     border-radius: 50%;
 }
-
