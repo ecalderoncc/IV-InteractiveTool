@@ -1,10 +1,96 @@
-body {
-  margin: 0;
-  padding: 0;
-  font-family: 'Lato', sans-serif;
-  letter-spacing: 0.05em;
-  background-color: #d9e4dd;
+/************************************page layout begin************************************/
+@font-face {
+  font-family: 'PlayfairDisplaySC';
+  src: url("./Playfair_Display_SC/PlayfairDisplaySC-Bold.ttf"),
+  url("./Playfair_Display_SC/PlayfairDisplaySC-Regular.ttf"),
+  url("./Playfair_Display_SC/PlayfairDisplaySC-Black.ttf");
 }
+@font-face {
+  font-family: 'GildaDisplay';
+  src: url("./Gilda_Display/GildaDisplay-Regular.ttf");
+}
+
+body{
+  height: 90%;
+  margin: 50px;
+}
+
+h1{
+  font-size:50px;
+  font-family: "PlayfairDisplaySC", serif;
+}
+.logo{
+  height: 150px;
+  background-color: #fbf7f0;
+}
+
+.logoText{
+  width: 95%;
+  padding-right: 10px;
+  padding-left: 30px;
+  text-align: center;
+}
+
+.logoText{
+  float: left;
+}
+
+.button{
+  font-family: PlayfairDisplaySC, serif;
+  background-color: #e8f1f5; /* Green */
+  border: none;
+  color: black;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 20px;
+  width: 44%;
+  border-radius: 5px;
+  transition: .2s;
+}
+
+.button:hover, a{
+  color: #903749;
+  text-decoration: underline;
+}
+#textIntro{
+  font-family: PlayfairDisplaySC, serif;
+}
+
+.subTitle{
+  font-size: 22px;
+  font-family: PlayfairDisplaySC, serif;
+  background-color: #d8d3cd;
+}
+
+.texts{
+  font-family: GildaDisplay, serif;
+  margin-bottom: 30px;
+}
+
+.ArtLover{
+  width: 300px;
+  height: 300px;
+  display: inline-block;
+  margin: 20px;
+  padding: 10px;
+}
+.Restaurants{
+  width: 38%;
+  height: 300px;
+  display: inline-block;
+  margin: 20px;
+  padding: 10px;
+}
+.transportation{
+  width: 300px;
+  height: 300px;
+  display: inline-block;
+  margin: 20px;
+  padding: 10px;
+}
+/************************************page layout end************************************/
 
 /**************** Map ****************/
 .map_box_container{
@@ -13,7 +99,10 @@ body {
   padding-top: 15px;
   width: 93%;
   height: 900px;
-  
+}
+
+.pad2 {
+  padding: 20px;
 }
 
 #map {
@@ -24,6 +113,13 @@ body {
   width: 95% !important;
 }
 
+#button-overlay{
+  position: absolute; 
+  top: 0; 
+  bottom: 0;
+  right: 0; 
+  width: 100%;
+}
 .map-overlay {
   position: absolute;
   width: 100%;
@@ -50,23 +146,59 @@ body {
 }
 
 .map-overlay .listing > * {
-  display: block;
+  /* display: block;
   padding: 5px 10px;
-  margin: 0;
-}
-
-.map-overlay .listing a {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-  color: rgb(0, 0, 0);
+  margin: 0; */
+  display: block;
+  border-bottom: 1px solid #eee;
+  padding: 10px;
   text-decoration: none;
 }
 
+.map-overlay .listing a {
+  /* border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  color: rgb(0, 0, 0);
+  text-decoration: none; */
+  color: #505050;
+  text-decoration: none;
+
+}
 .map-overlay .listing a:last-child {
   border: none;
 }
-
 .map-overlay .listing a:hover {
-  background: #f0f0f0;
+  /*background: #f0f0f0;*/
+  color: #101010;
+}
+
+.map-overlay .listings .item:last-child { 
+  border-bottom: none; 
+}
+
+.map-overlay .listings .item .listItemTitle {
+  display: block;
+  color: #00853e;
+  font-weight: 700;
+}
+
+.map-overlay .listings .item .title small { font-weight: 400; }
+  
+.map-overlay .listings .item.active .title,
+.map-overlay .listings .item .title:hover { color: #8cc63f; }
+
+.listings .item.active {
+  background-color: #f8f8f8;
+}
+
+
+.clearfix { display: block; }
+
+.clearfix::after {
+  content: '.';
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden;
 }
 
 #dropdown{
@@ -218,9 +350,6 @@ select{
   height: 800px;
 }
 
-i{
-  font-size: 13px;
-}
 .lists li{
   width: 200px;
   margin-right: 50px;
@@ -240,7 +369,37 @@ i{
 
 i{
   color: #666666;
-  font-size: 10px;
+  font-size: 12px;
+}
+
+.mapItemTitle{
+  background: #6b6b6b;
+  color: #fff;
+  margin: 0;
+  display: block;
+  padding: 10px;
+  border-radius: 3px 3px 0 0;
+  font-weight: 700;
+  margin-top: -10px;
+}
+
+.maplistItemBody{
+  color: #666666;
+  font-size: 12px;
+  margin: 0;
+  padding: 10px;
+  font-weight: 400;
+  margin-top: -5px;
+}
+
+.mapboxgl-popup-content {
+  font: 400 15px/22px 'Source Sans Pro', 'Helvetica Neue', Sans-serif;
+  padding: 0;
+  width: 210px;
+}
+
+.mapboxgl-popup-content-wrapper {
+  padding: 1%;
 }
 
 
@@ -250,8 +409,8 @@ i{
 .switch {
   position: relative;
   display: inline-block;
-  width: 60px;
-  height: 34px;
+  width: 55px;
+  height: 27px;
 }
 
 /* Hide default HTML checkbox */
@@ -277,8 +436,8 @@ i{
 .slider:before {
   position: absolute;
   content: "";
-  height: 26px;
-  width: 26px;
+  height: 20px;
+  width: 20px;
   left: 4px;
   bottom: 4px;
   background-color: white;
@@ -307,4 +466,60 @@ input:checked + .slider:before {
 
 .slider.round:before {
   border-radius: 50%;
+}
+
+::-webkit-scrollbar {
+  width: 3px;
+  height: 3px;
+  border-left: 0;
+  background: rgba(0, 0, 0, 0.1);
+}
+
+::-webkit-scrollbar-track {
+  background: none;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgb(45, 109, 212);
+  border-radius: 0;
+}
+
+#ck-button {
+  margin:4px;
+  background-color:#EFEFEF;
+  border-radius:4px;
+  border:1px solid #D0D0D0;
+  overflow:auto;
+  float:left;
+}
+
+#ck-button label {
+  float:left;
+  width:4.0em;
+}
+
+#ck-button label span {
+  text-align:center;
+  padding:3px 0px;
+  display:block;
+  border-radius:4px;
+}
+
+#ck-button label input {
+  position:absolute;
+  top:-20px;
+}
+
+#ck-button input:hover + span {
+  background-color:#e0e8ef;
+}
+
+#ck-button input:checked + span {
+  background-color:#2196F3;
+  color:#fff;
+}
+
+#ck-button input:checked:hover + span {
+  background-color:rgb(45, 109, 212);
+  color:#fff;
 }

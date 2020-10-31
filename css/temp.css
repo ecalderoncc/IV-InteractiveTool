@@ -1,0 +1,301 @@
+/************************************page layout begin************************************/
+@font-face {
+    font-family: 'PlayfairDisplaySC';
+    src: url("./Playfair_Display_SC/PlayfairDisplaySC-Bold.ttf"),
+    url("./Playfair_Display_SC/PlayfairDisplaySC-Regular.ttf"),
+    url("./Playfair_Display_SC/PlayfairDisplaySC-Black.ttf");
+}
+@font-face {
+    font-family: 'GildaDisplay';
+    src: url("./Gilda_Display/GildaDisplay-Regular.ttf");
+}
+
+body{
+    height: 90%;
+    margin: 50px;
+}
+
+h1{
+    font-size:50px;
+    font-family: "PlayfairDisplaySC", serif;
+}
+.logo{
+    height: 150px;
+    background-color: #fbf7f0;
+}
+
+.logoText{
+    width: 95%;
+    padding-right: 10px;
+    padding-left: 30px;
+    text-align: center;
+}
+
+.logoText{
+    float: left;
+}
+
+.button{
+    font-family: PlayfairDisplaySC, serif;
+    background-color: #e8f1f5; /* Green */
+    border: none;
+    color: black;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 20px;
+    width: 44%;
+    border-radius: 5px;
+    transition: .2s;
+}
+
+.button:hover, a{
+    color: #903749;
+    text-decoration: underline;
+}
+#textIntro{
+    font-family: PlayfairDisplaySC, serif;
+}
+
+.subTitle{
+    font-size: 22px;
+    font-family: PlayfairDisplaySC, serif;
+    background-color: #d8d3cd;
+}
+
+.texts{
+    font-family: GildaDisplay, serif;
+    margin-bottom: 30px;
+}
+
+.ArtLover{
+    width: 300px;
+    height: 300px;
+    display: inline-block;
+    margin: 20px;
+    padding: 10px;
+}
+.Restaurants{
+    width: 38%;
+    height: 300px;
+    display: inline-block;
+    margin: 20px;
+    padding: 10px;
+}
+.transportation{
+    width: 300px;
+    height: 300px;
+    display: inline-block;
+    margin: 20px;
+    padding: 10px;
+}
+/************************************page layout end************************************/
+
+
+/**************** Map ****************/
+.map_box_container{
+    position: relative;
+    padding: 70px;
+    padding-top: 15px;
+    width: 100%;
+    height: 900px;
+}
+
+#map {
+    position: relative;
+    top: 0;
+    bottom: 0;
+    height: 100% !important;
+    width: 100% !important;
+}
+
+.map-overlay {
+    position: absolute;
+    width: 100%;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    font: 13px/20px 'PlayfairDisplaySC', sans-serif;
+    background-color: #fff;
+    max-height: 100%;
+    overflow: hidden;
+}
+
+.map-overlay fieldset {
+    display: block;
+    background: #ddd;
+    border: none;
+    padding: 10px;
+    margin: 0;
+}
+
+.map-overlay .listing {
+    overflow: auto;
+    max-height: 100%;
+}
+
+.map-overlay .listing > * {
+    display: block;
+    padding: 5px 10px;
+    margin: 0;
+}
+
+.map-overlay .listing a {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    color: rgb(0, 0, 0);
+    text-decoration: none;
+}
+
+.map-overlay .listing a:last-child {
+    border: none;
+}
+
+.map-overlay .listing a:hover {
+    background: #f0f0f0;
+}
+
+#dropdown{
+    width: 98%;
+    height: 40px;
+    border-radius: 3px;
+    font-family: 'Lato', sans-serif;
+}
+
+.rounded-rect {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 0 50px -25px black;
+}
+
+.flex-center {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.flex-center.left {
+    left: 0px;
+}
+
+.sidebar-content {
+    position: absolute;
+    width: 95%;
+    height: 95%;
+    font-family: 'Lato', sans-serif;
+    font-size: 32px;
+    color: gray;
+}
+
+.sidebar-toggle {
+    position: absolute;
+    width: 1.3em;
+    height: 1.3em;
+    overflow: visible;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.sidebar-toggle.left {
+    right: -1.5em;
+}
+
+.sidebar-toggle.right {
+    left: -1.5em;
+}
+
+.sidebar-toggle:hover {
+    color: #0aa1cf;
+    cursor: pointer;
+}
+
+.sidebar {
+    transition: transform 1s;
+    z-index: 1;
+    width: 300px;
+    height: 97%;
+}
+
+.left.collapsed {
+    transform: translateX(-295px);
+}
+
+/********Design*********/
+select{
+    padding-left: 10px;
+    border: none;
+    outline: none;
+    width: 100%;
+    height: 30px;
+    line-height: 40px;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-color: #fbf7f0;
+}
+
+
+/* The switch - the box around the slider */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+/* The slider */
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+input:checked + .slider {
+    background-color: #2196F3;
+}
+
+input:focus + .slider {
+    box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+    border-radius: 34px;
+}
+
+.slider.round:before {
+    border-radius: 50%;
+}
