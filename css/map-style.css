@@ -11,8 +11,8 @@
 }
 
 body{
-  height: 90%;
-  margin: 50px;
+  height: 100%;
+  margin: 15px;
 }
 
 h1{
@@ -62,19 +62,32 @@ h1{
   font-size: 22px;
   font-family: PlayfairDisplaySC, serif;
   background-color: #d8d3cd;
+  width: auto;
 }
 
 .texts{
   font-family: GildaDisplay, serif;
-  margin-bottom: 30px;
+  margin-bottom: 80px;
+  display: block;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto ;
+  height: auto;
+}
+.textPar{
+  margin-bottom: 20px; 
+  text-align: justify;
+  width: auto;
 }
 
 .ArtLover{
   width: 300px;
   height: 300px;
+  text-align: center;
   display: inline-block;
   margin: 20px;
   padding: 10px;
+  vertical-align: top;
 }
 .Restaurants{
   width: 38%;
@@ -82,6 +95,7 @@ h1{
   display: inline-block;
   margin: 20px;
   padding: 10px;
+  vertical-align: top;
 }
 .transportation{
   width: 300px;
@@ -90,14 +104,21 @@ h1{
   margin: 20px;
   padding: 10px;
 }
+.navigation{
+  display: block;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto ;
+}
+
 /************************************page layout end************************************/
 
 /**************** Map ****************/
 .map_box_container{
   position: relative;
   padding: 70px;
-  padding-top: 15px;
-  width: 93%;
+  padding-top: 10px;
+  width: 100%;
   height: 900px;
 }
 
@@ -293,7 +314,8 @@ h1{
   text-align: center;
 }
 .text{
-  padding: 70px;
+  padding-left: 70px;
+  padding-right: 70px;
   padding-top: 15px;
   padding-bottom: 15px;
   width: 95%;
@@ -332,7 +354,8 @@ select{
 
 .text_map{
   background-color: #fbf7f0;
-  margin-bottom: 50px;
+  padding-right: 45px;
+  
 }
 
 .pic{
