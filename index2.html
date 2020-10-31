@@ -33,6 +33,68 @@
 
     <hr />
 
+    <div id="mapPart">
+        <div class="text_map">
+            <div class="text">
+                <div id="mainTextContainer">
+                    <div id="btnLine"><h2 id="subTitle" class="subTitle" style="background-color: unset;" >Did you know...</h2>                       
+                        <div id="labelDark"><button id="readMoreBtn" style="display: inline-block">Read more</button></div>
+                    </div>
+                    <p><span id="more" class="texts">
+                        It is widely rumoured that Flinders Street Station wasn’t meant for Melbourne – it was meant for Mumbai but the plans got mixed up. In Mumbai, there’s the very ornate, gothic Victoria Station.
+                    </span></p>
+                </div>
+                <select id="dropdown" name="rests" style="width:100%; font-size: 14px;">
+                    <option value="topAttractions" selected="selected">Popular Attractions</option>
+                    <option value="Restaurants">Restaurants</option>
+                    <option value="CoffeeShops">Coffee Shops</option>
+                    <option value="topEntertainment">Top Entertainment</option>
+                    <option value="AirbnbHosts">Airbnb Hosts</option>
+                    <option value="museums">Museums</option>
+                    <option value="tramStops">City Circle Tram Stops</option>
+                </select>
+            </div>
+            <section class="map_box_container">
+                <div id="map">
+                    <div id="left" class="sidebar flex-center left collapsed">
+                        <div class="sidebar-content rounded-rect flex-center">
+                            <div class="map-overlay">
+                                <fieldset id="seeTopField">
+                                    <div id="ck-button">
+                                        <label>
+                                           <input type="checkbox" id="showTop10Checkbox"
+                                           onclick="showTop10(document.getElementById('dropdown').value)"><span>Top 10</span>
+                                        </label>
+                                    </div>
+                                    <div id="labelDark">
+                                        <label>
+                                           <span>Dark Mode</span>
+                                        </label>
+                                    </div>
+                                    <div id="ck-button">
+                                        <label class="switch" style="width: 4.3em;">
+                                            <input type="checkbox" id="mapToDarkCheckBox" onclick="switchLayer()">
+                                            <span class="slider round"></span>
+                                        </label>
+                                    </div>
+                                </fieldset>
+                                <div id="feature-listing" class="listing"></div>
+                            </div>
+                            <div
+                                    class="sidebar-toggle rounded-rect left"
+                                    onclick="toggleSidebar('left')"
+                            >
+                                &rarr;
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <hr />
+
     <div class="texts">
         <div>
             <div class="ArtLover">
@@ -54,9 +116,9 @@
                 </div>
             </div>
             <div class="Restaurants">
-                <p class="textPar"><b>Melbourne is full of global cuisine and local specialties, including cafes, brunches and Special
+                <p id="read" class="textPar"><b>Melbourne is full of global cuisine and local specialties, including cafes, brunches and Special
                     food from all over the world, where you can get the chance to taste all of them in Melbourne.</b></p>
-                <img id="read" src="restaurants.jpeg" style="width: 100%; height: auto">
+                <img src="restaurants.jpeg" style="width: 100%; height: auto">
                 <p class="subTitle"><b>If you are a Gourmet
                     Enthusiast...</b></p>
                 <p class="textPar">
@@ -82,133 +144,9 @@
             </div>
         </div>
     </div>
-    <hr />
+    
 
-    <div>
-        <div class="text_map">
-            <div class="text">
-            
-                <div id="mainTextContainer">
-                    <div id="btnLine"><h2 id="subTitle" style="display: inline-block">If you are looking for best spots in
-                        Melbourne...</h2>
-                        <button id="readMoreBtn" style="display: inline-block">Read more</button>
-                    </div>
-                    <p style="font-size: 15px; width: 93%; text-align:justify"><span id="more">
-                        Melbourne is packed with tourist attractions, from laneways and street art to lush parks and grand galleries and museums.
-                    </span></p>
-                </div>
-                <select id="dropdown" name="rests" style="width:100%; font-size: 14px;">
-                    <option value="topAttractions" selected="selected">Attractions</option>
-                    <option value="Restaurants">Restaurants</option>
-                    <option value="CoffeeShops">Coffee Shops</option>
-                    <option value="topEntertainment">Entertainment</option>
-                    <option value="AirbnbHosts">Airbnb Hosts</option>
-                    <option value="museums">Museums</option>
-                    <option value="tramStops">City Circle Tram Stops</option>
-                </select>
-            </div>
-            <section class="map_box_container">
-                <div id="map">
-                    <div id="left" class="sidebar flex-center left collapsed">
-                        <div class="sidebar-content rounded-rect flex-center">
-                            <div class="map-overlay">
-                                <fieldset id="seeTopField">
-                                    <div id="ck-button">
-                                        <label>
-                                           <input type="checkbox" id="showTop10Checkbox"
-                                           onclick="showTop10(document.getElementById('dropdown').value)"><span>Top 10</span>
-                                        </label>
-                                    </div>
-                                    <label id="ck-button">Dark Mode</label>
-                                    <div id="ck-button">
-                                        <label class="switch">
-                                            <input type="checkbox" id="mapToDarkCheckBox" onclick="switchLayer()">
-                                            <span class="slider round"></span>
-                                        </label>
-                                    </div>
-                                </fieldset>
-                                <div id="feature-listing" class="listing"></div>
-                            </div>
-                            <div
-                                    class="sidebar-toggle rounded-rect left"
-                                    onclick="toggleSidebar('left')"
-                            >
-                                &rarr;
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </div>
-    </div>
-
-
-<!-- THIS SECTION THE TOP 10 WORKS
-<div id="logo">
-    <p id="header">Know more about the city of Melbourne.</p>
-</div>
-<div class="page">
-    <div class="header" style="border-bottom: black 20px">
-        <h1>Lovely Melbourne</h1>
-        <hr style="width: 93%"/>
-    </div>
-    <div class="text_map">
-        <div class="text" style="width: 95%">
-            <div id="mainTextContainer">
-                <div id="btnLine"><h2 id="subTitle" style="display: inline-block">If you are looking for best spots in
-                    Melbourne...</h2>
-                    <button id="readMoreBtn" style="display: inline-block">Read more</button>
-                </div>
-                <p style="font-size: 15px; width: 93%; text-align:justify"><span id="more">
-                    Melbourne is packed with tourist attractions, from laneways and street art to lush parks and grand galleries and museums.
-                </span></p>
-            </div>
-            <select id="dropdown" name="dropdown" style="font-size: 14px; width: 93%">
-                <option value="topAttractions" selected="selected">All Attractions</option>
-                <option value="Restaurants">Restaurants</option>
-                <option value="CoffeeShops">Coffee Shops</option>
-                <option value="topEntertainment">Must Popular Entertainment</option>
-                <option value="AirbnbHosts">Airbnb Hosts</option>
-                <option value="museums">Museums</option>
-                <option value="tramStops">City Circle Tram Stops</option>
-            </select>
-        </div>
-        <section class="map_box_container">
-            <div id="map">
-                <div id="left" class="sidebar flex-center left collapsed">
-                    <div class="sidebar-content rounded-rect flex-center">
-                        <div class="map-overlay">
-                            <fieldset id="seeTopField">
-                                <div id="ck-button">
-                                    <label>
-                                       <input type="checkbox" id="showTop10Checkbox"
-                                       onclick="showTop10(document.getElementById('dropdown').value)"><span>Top 10</span>
-                                    </label>
-                                </div>
-                                <div id="ck-button">
-                                    <label class="switch">
-                                        <input type="checkbox" id="mapToDarkCheckBox" onclick="switchLayer()">
-                                        <span class="slider round"></span>
-                                    </label>
-                                </div>
-                            </fieldset>
-                            <div id="feature-listing" class="listing"></div>
-                        </div>
-                        <div
-                                class="sidebar-toggle rounded-rect left"
-                                onclick="toggleSidebar('left')"
-                        >
-                            &rarr;
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <div>
-
-        </div>
-    </div>
-</div> -->
+    
 
 
 <script>
@@ -383,23 +321,6 @@
                     text += '<b class="mapItemTitle">' + feature.properties[attributes[0]] + '</b>';
                     text += '<p class="maplistItemBody">Stop N° ' + feature.properties[attributes[1]];
                 }
-
-                // if (activeLayer === 'AirbnbHosts' || activeLayer === 'topAirbnbHosts') {
-                //     text += '<b class="mapItemTitle">' + feature.properties[attributes[0]] + '</b>';
-                //     text += '<p class="maplistItemBody">' + 'Host Name: ' + feature.properties[attributes[1]] + '<br>';
-                //     text += 'Price Per Night: $' + feature.properties[attributes[2]] + '</p>';
-                //     text += '<i> Type: ' + feature.properties[attributes[3]] + '</i>';
-                // } else {
-                //     for (let i = 0; i < attributes.length; i++) {
-                //         if (i === 0) {
-                //             text += '<b class="mapItemTitle">' + feature.properties[attributes[i]] + '</b><br>';
-                //         } else if (i !== attributes.length - 1) {
-                //             text += feature.properties[attributes[i]] + '<br>'
-                //         } else {
-                //             text += '<i>' + feature.properties[attributes[i]] + '</i>';
-                //         }
-                //     }
-                // }
                 popup
                     .setLngLat(feature.geometry.coordinates)
                     .setHTML(text)
@@ -495,23 +416,6 @@
                     text += '<b class="mapItemTitle">' + feature.properties[attributes[0]] + '</b>';
                     text += '<p class="maplistItemBody">Stop N° ' + feature.properties[attributes[1]];
                 } 
-
-            // if (activeLayer === 'AirbnbHosts' || activeLayer === 'topAirbnbHosts') {
-            //     text += '<b class="mapItemTitle">' + feature.properties[attributes[0]] + '</b>';
-            //     text += '<p class="maplistItemBody">' + 'Host Name: ' + feature.properties[attributes[1]] + '<br>';
-            //     text += 'Price Per Night: $' + feature.properties[attributes[2]] + '</p>';
-            //     text += '<i> Type: ' + feature.properties[attributes[3]] + '</i>';
-            // } else {
-            //     for (let i = 0; i < attributes.length; i++) {
-            //         if (i === 0) {
-            //             text += '<b class="mapItemTitle">' + feature.properties[attributes[i]] + '</b><br>';
-            //         } else if (i !== attributes.length - 1) {
-            //             text += feature.properties[attributes[i]] + '<br>'
-            //         } else {
-            //             text += '<i>' + feature.properties[attributes[i]] + '</i>';
-            //         }
-            //     }
-            // }
             popup
                 .setLngLat(feature.geometry.coordinates)
                 .setHTML(text)
@@ -524,34 +428,26 @@
         });
 
         map.on('click', activeLayer, function(e) {
-            /* Determine if a feature in the "locations" layer exists at that point. */
             var features = map.queryRenderedFeatures({layers: [activeLayer]});
-            /* If yes, then: */
             if(features.length){
                 var clickedPoint = features[0];
                 //popup.remove();
                 flyToStore(clickedPoint);
                 createPopUp(clickedPoint);
-                // var activeItem = document.getElementsByClassName('active');
-                // if (activeItem[0]) {
-                //     activeItem[0].classList.remove('active');
-                // }
-                // var listing = document.getElementById('listing-' + clickedPoint.properties.id);
-                // listing.classList.add('active');  
             }
         });
 
         $('#dropdown').change(function () {
             let subTitle = document.getElementById("subTitle");
             if ($("#dropdown option:selected").val() === 'topAttractions') {
-                subTitle.textContent = 'If you are looking for best spots in Melbourne...';
-                $("#more").text('Melbourne is packed with tourist attractions, from laneways and street art to lush parks and grand galleries and museums.');
+                subTitle.textContent = 'Did you know...';
+                $("#more").text('It is widely rumoured that Flinders Street Station wasn’t meant for Melbourne – it was meant for Mumbai but the plans got mixed up. In Mumbai, there’s the very ornate, gothic Victoria Station.');
             } else if ($("#dropdown option:selected").val() === 'Restaurants') {
                 subTitle.textContent = 'If you are a gourmet enthusiast...';
-                $("#more").text('Melbourne\'s awash with high quality bars, cafes and restaurants, so you\'re always guaranteed to get a satisfying meal. From quick bites to magical dining experiences, Melbourne\'s got your bases covered. It\'s simply the best place to be in Australia for a top table experience. From bars and restaurants bestowed with awards from the Good Food Guide, Australian Gourmet Traveller and TimeOut, to tucked-away places treasured by locals, there\'s a selection of old favourites and new kids on the block. Discover Melbourne\'s best restaurants.');
+                $("#more").text('Melbourne has the highest number of restaurants and cafes per number of people than any other city in the world!');
             } else if ($("#dropdown option:selected").val() === 'topEntertainment') {
-                subTitle.textContent = 'If you are searching for great clubs and bars...';
-                $("#more").text('In Melbourne, you\'ll find a galaxy of great clubs and bars – ideal places for a convivial drink, social catch ups and DJ sessions, late into the night.');
+                subTitle.textContent = 'Best places to visit in the city of Melbourne ...';
+                $("#more").text('The gardens are home to over 170,000 plants, including those residing in the rugged Australian Garden, as well as a number of endangered Australian animals.');
             } else if ($("#dropdown option:selected").val() === 'CoffeeShops') {
                 subTitle.textContent = 'If you are a coffee lover...';
                 $("#more").text('Melbourne and coffee go together like Summer and the beach. It’s a match made in heaven. With what seems to be a coffee shop on every corner and lane way you’re\n' +
@@ -562,7 +458,7 @@
                 $("#more").text('There are a plenty of accommodations of different prices, ratings and standards located in Melbourne, serving with tourists with wonderful living experience and helping to make your trips more colorful and comfortable.');
             } else if ($("#dropdown option:selected").val() === 'museums') {
                 subTitle.textContent = 'If you like appreciating art...';
-                $("#more").text('Delve deep into the history of places near and far at Melbourne\'s varied museums\, dedicated to all manner of the city\'s quirky local stories.');
+                $("#more").text("The NGV is the most visited museum in the southern hemisphere. Globally it’s the 19th most visited");
             } else if ($("#dropdown option:selected").val() === 'tramStops') {
                 subTitle.textContent = 'If you want to explore city via public transport...';
                 $("#more").text('The City Circle Tram service provides a free and convenient way to get around central Melbourne. Tourists can use the City Circle Tram to travel to major attractions, shops and city events.');
@@ -617,22 +513,6 @@
                     text += '<p class="maplistItemBody">Stop N° ' + feature.properties[attributes[1]];
                 }
 
-                // if (activeLayer === 'AirbnbHosts' || activeLayer === 'topAirbnbHosts') {
-                //     text += '<b class="mapItemTitle">' + feature.properties[attributes[0]] + '</b>';
-                //     text += '<p class="maplistItemBody">' + 'Host Name: ' + feature.properties[attributes[1]] + '<br>';
-                //     text += 'Price Per Night: $' + feature.properties[attributes[2]] + '</p>';
-                //     text += '<i> Type: ' + feature.properties[attributes[3]] + '</i>';
-                // } else {
-                //     for (let i = 0; i < attributes.length; i++) {
-                //         if (i === 0) {
-                //             text += '<b class="mapItemTitle">' + feature.properties[attributes[i]] + '</b><br>';
-                //         } else if (i !== attributes.length - 1) {
-                //             text += feature.properties[attributes[i]] + '<br>'
-                //         } else {
-                //             text += '<i>' + feature.properties[attributes[i]] + '</i>';
-                //         }
-                //     }
-                // }
                 popup
                     .setLngLat(feature.geometry.coordinates)
                     .setHTML(text)
@@ -1099,18 +979,7 @@
                 if (activeLayer === 'tramStops') {
                     text += '<b class="listItemTitle">' + prop[attributes[0]];
                 }
-                
-                // else {
-                //     for (let i = 0; i < attributes.length; i++) {
-                //         if (i === 0) {
-                //             text += '<b class="mapItemTitle">' + prop[attributes[i]] + '</b><br>';
-                //         } else if (i !== attributes.length - 1) {
-                //             text += prop[attributes[i]] + '<br>'
-                //         } else {
-                //             text += '<i>' + prop[attributes[i]] + '</i>';
-                //         }
-                //     }
-                // }
+
                 item.innerHTML = text;
                 
                 item.addEventListener('mouseover', function () {
