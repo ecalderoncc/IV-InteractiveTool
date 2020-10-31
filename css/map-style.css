@@ -402,6 +402,21 @@ i{
   padding: 1%;
 }
 
+#more {display: none;}
+
+#subTitle{
+  margin: 0;
+}
+
+#btnLine{
+  display: flex;
+  align-items: center;
+}
+
+#readMoreBtn{
+  margin-left: 10px;
+}
+
 
 
 /********Design*********/
