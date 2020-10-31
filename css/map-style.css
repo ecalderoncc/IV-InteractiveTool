@@ -1,13 +1,13 @@
 /************************************page layout begin************************************/
 @font-face {
   font-family: 'PlayfairDisplaySC';
-  src: url("./Playfair_Display_SC/PlayfairDisplaySC-Bold.ttf"),
-  url("./Playfair_Display_SC/PlayfairDisplaySC-Regular.ttf"),
-  url("./Playfair_Display_SC/PlayfairDisplaySC-Black.ttf");
+  src: url("../PlayfairDisplaySC-Bold.ttf"),
+  url("../PlayfairDisplaySC-Regular.ttf"),
+  url("../PlayfairDisplaySC-Black.ttf");
 }
 @font-face {
   font-family: 'GildaDisplay';
-  src: url("./Gilda_Display/GildaDisplay-Regular.ttf");
+  src: url("../GildaDisplay-Regular.ttf");
 }
 
 body{
